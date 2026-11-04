@@ -3,160 +3,72 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ملوك مصر الفراعنة - لعبة تفاعلية</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
+<title>ملوك مصر</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@900&display=swap" rel="stylesheet">
 <style>
-*{font-family:'Cairo',sans-serif;box-sizing:border-box;margin:0;padding:0}
-body{background:#FFF8E1;overflow-x:hidden}
-.header-king{background:linear-gradient(#FFD600 0%, #FF8F00 45%, #3E2723 100%);padding:15px 10px 20px;text-align:center;border-radius:0 0 35px 35px;position:sticky;top:0;z-index:99;box-shadow:0 8px 20px #0003}
-.king-wrap{width:160px;margin:0 auto;position:relative}
-.nemes{width:160px;height:65px;background:linear-gradient(90deg,#0D47A1 0 12px,#FFD600 12px 24px,#0D47A1 24px 36px,#FFD600 36px 48px,#0D47A1 48px 60px,#FFD600 60px 72px,#0D47A1 72px 84px,#FFD600 84px 96px);border-radius:15px 15px 0 0;border:3px solid #FFD600;position:relative}
-.cobra{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:28px}
-.face{width:110px;height:105px;background:#FFCC80;border-radius:15px;margin:-8px auto 0;border:3px solid #3E2723;position:relative;z-index:2}
-.eyes{display:flex;justify-content:space-around;padding-top:15px}
-.eye{width:28px;height:16px;background:#fff;border:2px solid #000;border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;position:relative}
-.eye::after{content:'';position:absolute;width:10px;height:10px;background:#000;border-radius:50%;top:1px;left:6px}
-.eye.talking{animation:blink .35s infinite}
-.mouth{width:44px;height:12px;background:#6D4C41;border-radius:0 0 15px 15px;margin:6px auto;border:2px solid #3E2723;transition:.08s}
-.mouth.talking{animation:talk .11s infinite alternate}
-@keyframes talk{0%{height:10px;width:40px}100%{height:28px;width:55px}}
-@keyframes blink{0%,90%,100%{transform:scaleY(1)}95%{transform:scaleY(0.1)}}
-.beard{width:14px;height:32px;background:#3E2723;margin:2px auto;border-radius:0 0 8px 8px}
-.collar{width:150px;height:28px;background:conic-gradient(#FFD600,#E91E63,#0D47A1,#4CAF50,#FFD600);border-radius:0 0 40px 40px;margin:0 auto;border:2px solid #FFD600}
-.score-bar{background:#fff;margin:10px;border-radius:15px;padding:8px;display:flex;justify-content:space-around;box-shadow:0 3px 0 #0001;font-weight:900;font-size:14px}
-.map-container{position:relative;width:100%;max-width:380px;margin:10px auto;background:#C8E6C9;border-radius:25px;border:4px solid #FFD600;aspect-ratio:9/12;overflow:hidden}
-.map-bg{width:100%;height:100%;background:url('map.png');background-size:contain;background-repeat:no-repeat;background-position:center;background-color:#C8E6C9}
-.hotspot{position:absolute;width:38px;height:38px;border-radius:50%;background:#fff;border:3px solid #6C5CE7;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;box-shadow:0 3px 0 #6C5CE7;animation:float 2s infinite}
-.hotspot.active{transform:scale(1.25);border-color:#FFD600;background:#FFD600}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
-.kings-row{display:flex;gap:6px;overflow-x:auto;padding:8px 10px}
-.king-mini{padding:6px 10px;background:#fff;border-radius:15px;border:3px solid transparent;box-shadow:0 3px 0 #0001;cursor:pointer;min-width:70px;text-align:center;font-size:12px;font-weight:700}
-.king-mini.active{border-color:#6C5CE7;background:#EDE7F6}
-.bubble{background:#fff;margin:10px;border-radius:18px;padding:14px;box-shadow:0 4px 0 #FFD600;font-size:15px;line-height:1.7;min-height:60px;text-align:right}
-.play-btn{padding:12px 28px;background:#6C5CE7;color:#fff;border:none;border-radius:25px;font-weight:900;font-size:16px;box-shadow:0 5px 0 #4834D4;margin:6px;cursor:pointer}
-.play-btn:active{transform:translateY(5px);box-shadow:0 0 0}
-.q-btn{width:100%;padding:12px;margin:6px 0;border:2px solid #eee;border-radius:12px;background:#fff;font-weight:700;cursor:pointer}
-.q-btn.correct{background:#4CAF50!important;color:#fff!important}
-.q-btn.wrong{background:#FF4B4B!important;color:#fff!important}
-.popup{position:fixed;bottom:0;left:0;right:0;background:#fff;border-radius:25px 25px 0 0;padding:15px;transform:translateY(100%);transition:.4s;z-index:999;box-shadow:0 -10px 30px #0003;max-height:80vh;overflow:auto}
-.popup.show{transform:translateY(0)}
+*{font-family:'Cairo';box-sizing:border-box;margin:0}body{background:#FFF8E1;text-align:center}
+.king{width:150px;margin:10px auto;background:#fff;border-radius:50%;border:5px solid #FFD600;padding:10px;box-shadow:0 6px 0 #0002}
+.mouth{width:40px;height:12px;background:#5D4037;border-radius:0 0 15px 15px;margin:5px auto}
+.mouth.go{animation:talk .12s infinite alternate}
+@keyframes talk{0%{height:8px}100%{height:28px}}
+.bubble{background:#fff;margin:12px;border-radius:18px;padding:14px;box-shadow:0 4px 0 #FFD600;font-size:16px;line-height:1.8}
+.btn{padding:12px 25px;background:#6C5CE7;color:#fff;border:none;border-radius:25px;font-weight:900;margin:6px;box-shadow:0 5px 0 #4834D4}
+.map{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:12px;max-width:380px;margin:10px auto}
+.place{background:#fff;border-radius:15px;padding:12px;box-shadow:0 3px 0 #0002;border:3px solid transparent;cursor:pointer;font-weight:700}
+.place.active{border-color:#FFD600;background:#FFF9C4;transform:scale(1.05)}
 </style>
 </head>
 <body>
-
-<div class="header-king">
-<div class="king-wrap">
-<div class="nemes"><div class="cobra" id="cobra">🐍</div></div>
-<div class="face" id="face">
-<div class="eyes"><div class="eye" id="e1"></div><div class="eye" id="e2"></div></div>
+<img src="https://cdn-icons-png.flaticon.com/512/4205/4205907.png" class="king" id="kingImg">
+<h2 id="name">👑 الملك خوفو</h2>
+<p id="city" style="color:#888">كفر الشيخ - الوجه البحري</p>
 <div class="mouth" id="mouth"></div>
-<div class="beard"></div>
-</div>
-<div class="collar"></div>
-</div>
-<h3 id="kingName" style="color:#fff;text-shadow:0 2px 0 #000;margin-top:8px">👑 الملك خوفو الفرعوني</h3>
-<p id="kingPlace" style="color:#FFD600;font-weight:700;font-size:13px">كفر الشيخ - الوجه البحري - 13 محافظة</p>
-<button class="play-btn" onclick="talkKing()">🔊 خلي الملك يتكلم مصري</button>
-</div>
+<div class="bubble" id="bubble">أهلا يا بطل! دوس على الزرار واسمعني! أنا هشرحلك محافظات مصر كلها بصوتي!</div>
+<button class="btn" onclick="speak()">🔊 اسمع الملك</button>
 
-<div class="score-bar">
-<span>⭐ <b id="score">0</b></span>
-<span>🗺️ <b id="found">0/27</b></span>
-<span>👑 <b id="crowns">0</b></span>
-</div>
-
-<div class="kings-row">
-<div class="king-mini active" onclick="setKing('khufu',this)">👑 خوفو<br>بحري</div>
-<div class="king-mini" onclick="setKing('cleo',this)">👸 كليوباترا<br>بحر</div>
-<div class="king-mini" onclick="setKing('ramses',this)">👑 رمسيس<br>قبلي</div>
-<div class="king-mini" onclick="setKing('tahut',this)">🦅 تحتمس<br>حدود</div>
-</div>
-
-<div class="bubble" id="bubble">أهلا يا بطل سنة رابعة! أنا الملك خوفو لابس اللبس الفرعوني الأصلي - دوس على الزرار وخليّني أشرحلك محافظات مصر بصوتي المصري! 👑🗺️</div>
-
-<div class="map-container">
-<div class="map-bg">
-<div class="hotspot" style="top:7%;left:42%" onclick="clickMap('alex','الإسكندرية')">👸</div>
-<div class="hotspot" style="top:12%;left:58%" onclick="clickMap('khufu','البحيرة')">👑</div>
-<div class="hotspot" style="top:15%;left:32%" onclick="clickMap('khufu','كفر الشيخ')">⭐</div>
-<div class="hotspot" style="top:18%;left:50%" onclick="clickMap('khufu','القاهرة')">🏛️</div>
-<div class="hotspot" style="top:21%;left:68%" onclick="clickMap('khufu','دمياط')">🐟</div>
-<div class="hotspot" style="top:40%;left:48%" onclick="clickMap('ramses','الجيزة')">🔺</div>
-<div class="hotspot" style="top:54%;left:50%" onclick="clickMap('ramses','المنيا')">👑</div>
-<div class="hotspot" style="top:67%;left:53%" onclick="clickMap('ramses','الأقصر')">🏺</div>
-<div class="hotspot" style="top:75%;left:56%" onclick="clickMap('ramses','أسوان')">🌊</div>
-<div class="hotspot" style="top:30%;left:12%" onclick="clickMap('tahut','مطروح')">🏖️</div>
-<div class="hotspot" style="top:48%;left:18%" onclick="clickMap('tahut','الوادي الجديد')">🌴</div>
-<div class="hotspot" style="top:35%;left:74%" onclick="clickMap('tahut','سيناء')">⛰️</div>
-<div class="hotspot" style="top:60%;left:73%" onclick="clickMap('tahut','البحر الأحمر')">🐠</div>
-</div>
-</div>
-
-<div class="popup" id="popup">
-<h3 id="popTitle">👑 برافو!</h3>
-<p id="popText" style="margin:10px 0"></p>
-<div id="quizArea"></div>
-<button onclick="closePop()" style="width:100%;padding:10px;background:#eee;border:none;border-radius:12px;margin-top:10px">اقفل ✕</button>
+<div class="map">
+<div class="place" onclick="pick('كفر الشيخ',this)">⭐ كفر الشيخ</div>
+<div class="place" onclick="pick('الإسكندرية',this)">👸 إسكندرية</div>
+<div class="place" onclick="pick('القاهرة',this)">🏛️ القاهرة</div>
+<div class="place" onclick="pick('دمياط',this)">🐟 دمياط</div>
+<div class="place" onclick="pick('الجيزة',this)">🔺 الجيزة</div>
+<div class="place" onclick="pick('الأقصر',this)">🏺 الأقصر</div>
+<div class="place" onclick="pick('أسوان',this)">🌊 أسوان</div>
+<div class="place" onclick="pick('الوادي الجديد',this)">🌴 الوادي الجديد</div>
+<div class="place" onclick="pick('سيناء',this)">⛰️ سيناء</div>
 </div>
 
 <script>
-let score=0,crowns=0,foundSet=new Set(),current='khufu';
-const winAudio=new Audio('https://cdn.pixabay.com/download/audio/2021/08/04/audio_0625c1539c.mp3?filename=success-1-6297.mp3');
-const loseAudio=new Audio('https://cdn.pixabay.com/download/audio/2022/03/24/audio_2b5c24f8d7.mp3?filename=wrong-answer-129254.mp3');
-const crownAudio=new Audio('https://cdn.pixabay.com/download/audio/2021/08/04/audio_0625c20b2e.mp3?filename=achievement-6188.mp3');
-
-const kings={
-khufu:{name:"👑 الملك خوفو الفرعوني",place:"كفر الشيخ - الوجه البحري - 13 محافظة",face:"#FFCC80",crown:"🐍",text:"يا هلا يا ابطال سنة رابعة! انا الملك خوفو لابس النمس الفرعوني الازرق والدهب وتاج الكوبرا. انا باني الهرم الاكبر. مصر متقسمة سبعة وعشرين محافظة. انا بحكم الوجه البحري تلاتاشر محافظة منهم كفر الشيخ بتاعتكم الجميلة المشهورة بالرز والسمك ودمياط اصغر محافظة في مصر كلها!"},
-cleo:{name:"👸 كليوباترا باللبس الملكي",place:"إسكندرية - عروس البحر",face:"#F8BBD0",crown:"👑",text:"اهلا يا حلوين! انا الملكة كليوباترا لابسة التاج الملكي والقلادة الفرعونية الملونة. انا ملكة اسكندرية عروس البحر المتوسط. انا بحكم اسكندرية والبحيرة وبورسعيد والسويس. احنا على المينا وبنستقبل السفن من كل العالم!"},
-ramses:{name:"👑 رمسيس التاني المحارب",place:"الأقصر وأسوان - الصعيد - 9 محافظات",face:"#FFE082",crown:"⚔️",text:"انا الملك رمسيس التاني اعظم ملوك مصر لابس لبس الحرب والقلادة الدهب. انا حكمت الصعيد كله تسع محافظات من الجيزة لحد اسوان. عندنا الجيزة فيها الاهرامات وابو الهول والاقصر فيها تلت اثار العالم كله واسوان فيها السد العالي ومعبد ابو سمبل!"},
-tahut:{name:"🦅 تحتمس حارس الحدود",place:"الوادي الجديد - أكبر محافظة",face:"#B2DFDB",crown:"🦅",text:"انا الملك تحتمس التالت المحارب الشجاع حارس حدود مصر لابس خوذة الحرب. انا بحرس خمس محافظات كبار قوي. الوادي الجديد اكبر محافظة في مصر كلها ومطروح والبحر الاحمر وسيناء وشرم الشيخ وجبل سانت كاترين! انا بحمي بلدنا!"}
+let curPlace='كفر الشيخ';
+const texts={
+'كفر الشيخ':'يا هلا بأهل كفر الشيخ! انا الملك خوفو باني الهرم الاكبر. كفر الشيخ محافظة جميلة على البحر المتوسط مشهورة بالرز والسمك وبحيرة البرلس. وهي من محافظات الوجه البحري اللي عددهم تلاتاشر محافظة!',
+'الإسكندرية':'انا كليوباترا ملكة اسكندرية عروس البحر المتوسط! اسكندرية فيها المينا الكبير ومكتبة اسكندرية وجوها تحفة!',
+'القاهرة':'القاهرة عاصمة مصر واكبر محافظة فيها تلاتاشر مليون واحد! فيها القلعة والازهر!',
+'دمياط':'دمياط اصغر محافظة في مصر كلها! مشهورة بالاثاث والسمك!',
+'الجيزة':'الجيزة فيها الاهرامات التلاتة وابو الهول! انا اللي بنيت الهرم الاكبر!',
+'الأقصر':'الاقصر فيها تلت اثار العالم كله! معبد الكرنك ووادي الملوك!',
+'أسوان':'اسوان فيها السد العالي ومعبد ابو سمبل وجزيرة فيلة! جوها جميل في الشتا!',
+'الوادي الجديد':'الوادي الجديد اكبر محافظة في مصر كلها! مساحتها كبيرة قوي بس صحراء وفيها واحات!',
+'سيناء':'سيناء فيها شرم الشيخ ودهب وجبل سانت كاترين! احلى مكان للسياحة!'
 };
-
-function setKing(id,el){
-current=id;
-document.querySelectorAll('.king-mini').forEach(b=>b.classList.remove('active'));
+function pick(p,el){
+curPlace=p;
+document.querySelectorAll('.place').forEach(x=>x.classList.remove('active'));
 el.classList.add('active');
-document.getElementById('kingName').innerText=kings[id].name;
-document.getElementById('kingPlace').innerText=kings[id].place;
-document.getElementById('face').style.background=kings[id].face;
-document.getElementById('cobra').innerText=kings[id].crown;
-document.getElementById('bubble').innerText='دوس وخلي '+kings[id].name+' يتكلم!';
-window.speechSynthesis.cancel();stopTalk();
+document.getElementById('city').innerText=p;
+document.getElementById('bubble').innerText=texts[p];
+speak();
 }
-function talkKing(){
-const t=kings[current].text;
+function speak(){
+let t=texts[curPlace];
 document.getElementById('bubble').innerText=t;
-startTalk();
+let m=document.getElementById('mouth');
+m.classList.add('go');
 let u=new SpeechSynthesisUtterance(t);
-let voices=window.speechSynthesis.getVoices();
-let eg=voices.find(v=>v.lang==='ar-EG'); if(eg) u.voice=eg;
-u.lang='ar-EG';u.rate=0.84;u.pitch=1.05;
-u.onend=()=>{stopTalk();document.getElementById('bubble').innerHTML=t+'<br><br>✅ <b>سمعت الشرح! دوس على الخريطة واكتشف محافظة جديدة!</b>';};
-window.speechSynthesis.speak(u);
+u.lang='ar-EG';u.rate=0.85;
+u.onend=()=>m.classList.remove('go');
+speechSynthesis.speak(u);
 }
-function startTalk(){document.getElementById('mouth').classList.add('talking');document.getElementById('e1').classList.add('talking');document.getElementById('e2').classList.add('talking');}
-function stopTalk(){document.getElementById('mouth').classList.remove('talking');document.getElementById('e1').classList.remove('talking');document.getElementById('e2').classList.remove('talking');}
-function clickMap(kingId,place){
-setKing(kingId,document.querySelector(`.king-mini:nth-child(${kingId==='khufu'?1:kingId==='cleo'?2:kingId==='ramses'?3:4})`));
-foundSet.add(place);score+=10;
-if(foundSet.size%3==0){crowns++;crownAudio.play().catch(()=>{});}
-else{winAudio.play().catch(()=>{});}
-document.getElementById('score').innerText=score;
-document.getElementById('found').innerText=foundSet.size+'/27';
-document.getElementById('crowns').innerText=crowns;
-document.getElementById('popTitle').innerText='📍 اكتشفت '+place+'!';
-document.getElementById('popText').innerText=kings[kingId].place+' - برافو يا بطل!';
-document.getElementById('quizArea').innerHTML=`<button class="q-btn" onclick="answerQ(this,1)">سمعت شرح ${place} 👑</button><button class="q-btn" onclick="answerQ(this,0)">لسه مسمعتش</button>`;
-document.getElementById('popup').classList.add('show');
-}
-function answerQ(el,ok){
-if(ok){el.classList.add('correct');winAudio.play().catch(()=>{});score+=5;}
-else{el.classList.add('wrong');loseAudio.play().catch(()=>{});}
-document.getElementById('score').innerText=score;
-setTimeout(closePop,800);
-}
-function closePop(){document.getElementById('popup').classList.remove('show');}
-window.speechSynthesis.onvoiceschanged=()=>window.speechSynthesis.getVoices();
 </script>
 </body>
 </html>
