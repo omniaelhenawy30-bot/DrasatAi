@@ -3,181 +3,65 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DrasatAi - أهلا بملوك مصر 👑</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;800;900&display=swap" rel="stylesheet">
-<style>
-*{font-family:'Cairo',sans-serif;box-sizing:border-box;margin:0;padding:0}
-body{background:#FFF8E1;color:#1a1a1a}
-.header{background:linear-gradient(135deg,#6C5CE7,#8B7DFF);color:#fff;padding:14px;text-align:center;position:sticky;top:0;z-index:99;box-shadow:0 2px 15px #6C5CE760}
-.container{max-width:520px;margin:auto;padding:12px 12px 100px}
-.hero{background:linear-gradient(135deg,#6C5CE7 0%,#A29BFE 100%);color:#fff;border-radius:24px;padding:26px 20px;text-align:center;margin:14px 0;position:relative;overflow:hidden}
-.hero::before{content:'👑';position:absolute;font-size:80px;opacity:.15;top:-10px;left:-10px;transform:rotate(-15deg)}
-.hero h1{font-size:26px;font-weight:900;position:relative}
-.hero p{font-size:14px;margin-top:8px;opacity:.95;position:relative}
-.card{background:#fff;border-radius:20px;padding:16px;margin:14px 0;box-shadow:0 6px 0 #E9E8FF, 0 8px 20px #00000008;border:1px solid #F0EEFF}
-.card b{display:block;margin-bottom:8px}
-.input{width:100%;padding:13px;border:2.5px solid #E9E8FF;border-radius:14px;text-align:center;font-size:16px;font-weight:800;outline:none;transition:.2s}
-.input:focus{border-color:#6C5CE7;background:#F8F7FF}
-.subjects{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
-.sub{border-radius:20px;padding:18px 10px;text-align:center;cursor:pointer;border:2.5px solid #F0EEFF;background:#fff;transition:.2s;box-shadow:0 4px 0 #F0EEFF}
-.sub.active{border-color:#6C5CE7;background:#F3F0FF;transform:translateY(-3px);box-shadow:0 7px 0 #6C5CE7}
-.sub .emoji{font-size:34px}
-.sub b{font-size:14px;margin-top:6px;display:block}
-.sub span{font-size:11px;color:#888}
-.btn-main{width:100%;padding:16px;background:linear-gradient(135deg,#FFD600,#FFA502);border:none;border-radius:16px;font-size:18px;font-weight:900;cursor:pointer;box-shadow:0 6px 0 #E67E22;transition:.1s}
-.btn-main:active{transform:translateY(4px);box-shadow:0 2px 0 #E67E22}
-.view{display:none}
-.video-box{border-radius:20px;overflow:hidden;background:#000;aspect-ratio:16/9;position:relative;margin-bottom:12px}
-.video-box iframe{width:100%;height:100%;border:none}
-.lesson-title{font-size:20px;font-weight:900;color:#6C5CE7;margin:8px 0}
-.lesson-text{background:#F8F7FF;border-radius:14px;padding:14px;line-height:1.9;font-size:14px;border-right:4px solid #6C5CE7}
-.tags{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
-.tag{background:#FFD600;color:#000;padding:5px 10px;border-radius:20px;font-size:12px;font-weight:800}
-.quiz-btn{width:100%;padding:13px;margin:6px 0;background:#fff;border:2.5px solid #E9E8FF;border-radius:14px;text-align:right;font-weight:700;cursor:pointer;transition:.2s;font-size:14px}
-.quiz-btn:hover{border-color:#6C5CE7;background:#F8F7FF}
-.quiz-btn.ok{background:#4CAF50!important;color:#fff!important;border-color:#4CAF50!important}
-.quiz-btn.no{background:#FF5252!important;color:#fff!important;border-color:#FF5252!important}
-.back{background:#fff;border:2.5px solid #E9E8FF;border-radius:14px;padding:12px;width:100%;font-weight:800;cursor:pointer;margin-bottom:12px}
-.progress-line{display:flex;gap:6px;margin:12px 0}
-.dot{flex:1;height:8px;background:#E9E8FF;border-radius:10px;transition:.3s}
-.dot.done{background:#4CAF50}
-.dot.active{background:#6C5CE7}
-.score-card{background:linear-gradient(135deg,#6C5CE7,#A29BFE);color:#fff;border-radius:20px;padding:16px;text-align:center;margin:14px 0}
-</style>
+<title>DrasatAi - ملوك مصر 👑</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
+<style>*{font-family:'Cairo'}</style>
 </head>
-<body>
-<div class="header">👑 <b>DrasatAi - أهلا بملوك مصر!</b></div>
-<div class="container">
+<body class="bg-[#FFFDF5]">
+<div id="root"></div>
 
-<!-- الواجهة 1: ترحيب -->
-<div id="viewHome">
-<div class="hero">
-<h1>أهلا بملوك مصر! 👑</h1>
-<p>اتعلم دراسات رابعة بفيديوهات حقيقية + كويزات + تاج الملك</p>
-</div>
-
-<div class="card">
-<b>👋 اسمك ايه يا ملك؟</b>
-<input id="nameInput" class="input" placeholder="مثال: يوسف">
-<p style="font-size:11px;color:#888;text-align:center;margin-top:6px">هنحطه في لوحة الشرف بتاعة ملوك مصر</p>
-</div>
-
-<div class="subjects">
-<div class="sub active" data-sub="دراسات" onclick="pickSub(this)"><div class="emoji">🗺️</div><b>دراسات اجتماعية</b><span>27 محافظة - 5 دروس</span></div>
-<div class="sub" style="opacity:.6"><div class="emoji">🔬</div><b>علوم</b><span>قريباً</span></div>
-<div class="sub" style="opacity:.6"><div class="emoji">📚</div><b>عربي</b><span>قريباً</span></div>
-<div class="sub" style="opacity:.6"><div class="emoji">🔢</div><b>رياضة</b><span>قريباً</span></div>
-</div>
-
-<button class="btn-main" onclick="goLessons()">🚀 ابدأ يا ملك مصر!</button>
-<p style="text-align:center;font-size:11px;color:#999;margin-top:8px">5 فيديوهات حقيقية • كل فيديو دقيقتين • + 500 نقطة للتاج</p>
-</div>
-
-<!-- الواجهة 2: الدروس -->
-<div id="viewLessons" class="view">
-<button class="back" onclick="goHome()">⬅️ رجوع للرئيسية</button>
-
-<div class="progress-line" id="progressDots"></div>
-
-<div class="score-card">
-<div style="font-size:13px;opacity:.9">نقاطك يا <span id="kingNameShow">ملك مصر</span></div>
-<div style="font-size:28px;font-weight:900" id="scoreShow">0 🔥</div>
-</div>
-
-<div id="lessonContainer"></div>
-
-<div style="display:flex;gap:10px;margin-top:14px">
-<button class="back" style="flex:1" onclick="prevLesson()">⬅️ السابق</button>
-<button class="btn-main" style="flex:1.5" onclick="nextLesson()">التالي ➡️</button>
-</div>
-</div>
-
-</div>
-
-<script>
-const lessons=[
-{
-title:"الدرس 1: يعني ايه محافظة؟",
-yt:"https://www.youtube.com/embed/5V5M3S5s9Xo?rel=0",
-text:"مصر متقسمة 27 محافظة زي أوض البيت الكبير! كل محافظة ليها محافظ بيديرها وليها عاصمة. العاصمة بتاعة مصر كلها هي القاهرة. التقسيمة دي عشان نعرف ندير البلد كويس!",
-tags:["27 محافظة","محافظ","عاصمة"],
-q:"القاهرة عاصمة ايه؟",
-opts:[["مصر كلها",true],["كفر الشيخ بس",false],["اسكندرية",false]]
-},
-{
-title:"الدرس 2: الوجه البحري - 13 محافظة",
-yt:"https://www.youtube.com/embed/3SsK-cxlj_w?rel=0",
-text:"الوجه البحري فوق في شمال مصر على البحر المتوسط! 13 محافظة! فيه كفر الشيخ و البحيرة و الدقهلية و الغربية و المنوفية و الشرقية و دمياط و بورسعيد و الاسماعيلية و السويس و القليوبية و الاسكندرية و كفر الشيخ بلدنا الجميلة اللي بتطل على البحر و بتعمل رز و سمك!",
-tags:["13 محافظة","البحر المتوسط","كفر الشيخ - بلدنا"],
-q:"الوجه البحري كام محافظة؟",
-opts:[["13 محافظة",true],["9 محافظات",false],["5 محافظات",false]]
-},
-{
-title:"الدرس 3: الوجه القبلي - 9 محافظات",
-yt:"https://www.youtube.com/embed/9p5y1q2L6y0?rel=0",
-text:"الوجه القبلي تحت في جنوب مصر على نهر النيل! 9 محافظات: الجيزة فيها الأهرامات وأبو الهول، الفيوم، بني سويف، المنيا، أسيوط، سوهاج، قنا، الأقصر فيها تلت آثار العالم، أسوان فيها السد العالي!",
-tags:["9 محافظات","الأهرامات","الأقصر - تلت الآثار","أسوان - السد"],
-q:"فين الأهرامات؟",
-opts:[["الجيزة",true],["دمياط",false],["بورسعيد",false]]
-},
-{
-title:"الدرس 4: المحافظات الحدودية - الكبار",
-yt:"https://www.youtube.com/embed/2Vv-BfVoq4g?rel=0",
-text:"دول 5 محافظات بس كل واحدة قد الدنيا! الوادي الجديد أكبر محافظة في مصر كلها! مطروح، البحر الأحمر، شمال سيناء، جنوب سيناء فيها شرم الشيخ و جبل سانت كاترين! كلها صحرا و جبال و بحر!",
-tags:["5 محافظات","الوادي الجديد - أكبر واحدة","سيناء","مطروح"],
-q:"أكبر محافظة في مصر؟",
-opts:[["الوادي الجديد",true],["القاهرة",false],["دمياط",false]]
-},
-{
-title:"الدرس 5: المراجعة والتاج 👑",
-yt:"https://www.youtube.com/embed/jNQXAC9IVRw?rel=0",
-text:"برافو يا ملوك مصر! خلصنا! 27 محافظة = 13 بحري + 9 قبلي + 5 حدودية! أصغر محافظة دمياط، أكبر محافظة الوادي الجديد، عاصمة مصر القاهرة! دلوقتي انت بقيت ملك مصر بجد و تستاهل التاج الذهبي! 👑",
-tags:["27 محافظة","دمياط أصغر محافظة","الوادي الجديد أكبر محافظة","التاج 👑"],
-q:"أصغر محافظة؟",
-opts:[["دمياط",true],["الوادي الجديد",false],["القاهرة",false]]
+<script type="text/babel">
+const { useState } = React;
+function App() {
+  const [open, setOpen] = useState(null);
+  const lessons = [
+    { id:1, emoji:"🌊", color:"bg-[#FFF8E1]", title:"الوجه البحري", desc:"13 محافظة - كفر الشيخ بلدنا!", time:"2:15", video:"https://www.youtube.com/embed/3SsK-cxlj_w", text:"الوجه البحري 13 محافظة على البحر المتوسط، فيه كفر الشيخ بتاعتنا بتعمل رز وسمك ودمياط أصغر محافظة!" },
+    { id:2, emoji:"🏜️", color:"bg-[#FFF0F0]", title:"الوجه القبلي", desc:"الأهرامات والأقصر وأسوان", time:"2:30", video:"https://www.youtube.com/embed/9p5y1q2L6y0", text:"من الجيزة لحد أسوان! الجيزة فيها الأهرامات والأقصر تلت آثار العالم!" },
+    { id:3, emoji:"🏔️", color:"bg-[#F0FFF4]", title:"المحافظات الحدودية", desc:"الوادي الجديد أكبر محافظة!", time:"2:05", video:"https://www.youtube.com/embed/2Vv-BfVoq4g", text:"5 محافظات بس كل واحدة قد الدنيا! الوادي الجديد أكبر محافظة في مصر!" },
+  ];
+  return (
+    <div dir="rtl" className="min-h-screen">
+      <nav className="max-w-6xl mx-auto flex justify-between items-center p-4">
+        <div className="flex items-center gap-2 font-black text-xl"><span className="bg-[#6C5CE7] text-white w-9 h-9 rounded-xl flex items-center justify-center">👑</span> DrasatAi</div>
+        <div className="bg-[#FFF4CC] px-4 py-2 rounded-full text-sm font-bold">🔥 27 محافظة</div>
+      </nav>
+      <div className="max-w-6xl mx-auto px-4 mt-6 grid md:grid-cols-2 gap-6 items-center">
+        <div>
+          <h1 className="text-5xl font-black leading-tight">أهلا<br/><span className="text-[#6C5CE7]">بملوك مصر!</span> 👑</h1>
+          <p className="text-gray-600 mt-4">ده موقع React بجد شغال على GitHub بتاعك من غير تسجيل دخول</p>
+          <button onClick={()=>document.getElementById('lessons').scrollIntoView({behavior:'smooth'})} className="mt-6 bg-[#FFD600] px-7 py-3 rounded-2xl font-black shadow-[0_5px_0_#E67E22]">ابدأ دلوقتي 🚀</button>
+        </div>
+        <div className="bg-gradient-to-br from-[#6C5CE7] to-[#A29BFE] rounded-[32px] p-6 text-white min-h-[300px] flex flex-col justify-end">
+          <div className="bg-white text-black rounded-2xl p-4"><b>الوجه البحري</b><p className="text-xs text-gray-500 mt-1">كفر الشيخ • دمياط • اسكندرية...</p></div>
+        </div>
+      </div>
+      <div id="lessons" className="max-w-6xl mx-auto px-4 mt-16">
+        <h2 className="text-2xl font-black">📚 دروسك يا ملك</h2>
+        <div className="grid md:grid-cols-3 gap-4 mt-6">
+          {lessons.map(l=>(
+            <div key={l.id} onClick={()=>setOpen(l)} className="bg-white rounded-[20px] p-3 border-2 border-gray-100 hover:border-[#6C5CE7] cursor-pointer hover:-translate-y-1 transition-all">
+              <div className={`${l.color} rounded-[16px] h-32 flex items-center justify-center text-5xl`}>{l.emoji}</div>
+              <div className="p-2"><b className="block mt-2">{l.title}</b><p className="text-xs text-gray-500 mt-1">{l.desc}</p><span className="bg-black text-white px-2 py-1 rounded-full text-xs mt-2 inline-block">▶️ {l.time}</span></div>
+            </div>
+          ))}
+        </div>
+      </div>
+      {open && (
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50" onClick={()=>setOpen(null)}>
+          <div className="bg-white rounded-[24px] max-w-2xl w-full overflow-hidden" onClick={e=>e.stopPropagation()}>
+            <div className="aspect-video bg-black"><iframe className="w-full h-full" src={open.video+"?autoplay=1"} allowFullScreen></iframe></div>
+            <div className="p-5"><h3 className="font-black text-xl">{open.title}</h3><p className="text-sm text-gray-600 mt-2">{open.text}</p><button onClick={()=>setOpen(null)} className="w-full mt-4 bg-[#6C5CE7] text-white py-3 rounded-xl font-bold">تمام يا ملك! 👑</button></div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
-];
-
-let cur=0, score=0;
-function pickSub(el){document.querySelectorAll('.sub').forEach(s=>s.classList.remove('active'));el.classList.add('active');}
-function goLessons(){
-let name=document.getElementById('nameInput').value.trim()||'ملك مصر';
-localStorage.setItem('kingName',name);
-document.getElementById('kingNameShow').innerText=name;
-document.getElementById('viewHome').style.display='none';
-document.getElementById('viewLessons').style.display='block';
-buildDots();
-renderLesson();
-}
-function goHome(){document.getElementById('viewLessons').style.display='none';document.getElementById('viewHome').style.display='block';}
-function buildDots(){
-let c=document.getElementById('progressDots');c.innerHTML='';
-lessons.forEach((_,i)=>{let d=document.createElement('div');d.className='dot'+(i<cur?' done':'')+(i===cur?' active':'');c.appendChild(d);});
-}
-function renderLesson(){
-let L=lessons[cur];
-buildDots();
-document.getElementById('lessonContainer').innerHTML=`
-<div class="card">
-<div class="video-box"><iframe src="${L.yt}" allowfullscreen></iframe></div>
-<div class="lesson-title">${L.title}</div>
-<div class="lesson-text">${L.text}</div>
-<div class="tags">${L.tags.map(t=>`<span class='tag'>${t}</span>`).join('')}</div>
-<div class="card" style="margin:12px 0 0 0;box-shadow:none;border:2px dashed #FFD600">
-<b>🤔 سؤال يا ملك: ${L.q}</b>
-${L.opts.map(o=>`<button class='quiz-btn' onclick='checkAns(this,${o[1]})'>${o[0]}</button>`).join('')}
-</div>
-</div>`;
-document.getElementById('scoreShow').innerText=score+' 🔥';
-window.scrollTo({top:0,behavior:'smooth'});
-}
-function checkAns(btn,ok){
-if(btn.classList.contains('ok')||btn.classList.contains('no')) return;
-if(ok){btn.classList.add('ok');score+=100;document.getElementById('scoreShow').innerText=score+' 🔥';}
-else{btn.classList.add('no');}
-}
-function nextLesson(){if(cur<lessons.length-1){cur++;renderLesson();}else{alert('🎉 مبروك يا '+localStorage.getItem('kingName')+'! خلصت و بقيت ملك مصر الحقيقي! 👑 نقاطك: '+score);}}
-function prevLesson(){if(cur>0){cur--;renderLesson();}}
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
 </script>
 </body>
 </html>
