@@ -1,103 +1,74 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DrasatAi - دراسات بالذكاء الاصطناعي</title>
+<title>DrasatAi - محافظات مصر</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;800&display=swap" rel="stylesheet">
 <style>body{font-family:'Cairo',sans-serif}</style>
 </head>
 <body class="bg-[#fffbf0]">
-<div id="app" class="max-w-[430px] mx-auto bg-white min-h-screen shadow-xl flex flex-col">
+<div class="max-w-[430px] mx-auto bg-white min-h-screen shadow-xl">
 
-<div class="p-4 flex justify-between items-center border-b sticky top-0 bg-white z-10">
-  <div class="flex items-center gap-2">
-    <div class="bg-black text-yellow-400 w-10 h-10 rounded-xl flex items-center justify-center font-black text-sm">DAi</div>
-    <div>
-      <div class="font-black leading-none">DrasatAi</div>
-      <div class="text-[11px] text-gray-500">رابعة ابتدائي • 12 مرحلة</div>
-    </div>
-  </div>
-  <div class="flex gap-2 text-xs font-bold">
-    <span class="bg-orange-100 px-2 py-1 rounded-full">🔥 7</span>
-    <span class="bg-blue-100 px-2 py-1 rounded-full">💎 1,240 XP</span>
-  </div>
+<div class="p-4 flex justify-between border-b sticky top-0 bg-white z-10">
+  <div class="flex gap-2 items-center"><div class="bg-black text-yellow-400 w-10 h-10 rounded-xl flex items-center justify-center font-black">DAi</div><div><div class="font-black">DrasatAi</div><div class="text-[11px] text-gray-500">رابعة • 12 مرحلة</div></div></div>
+  <div class="text-xs font-bold">🔥7 💎1240 XP</div>
 </div>
 
-<div id="map-view" class="p-5 pb-24">
-  <div class="bg-gradient-to-r from-sky-200 to-blue-100 rounded-3xl p-4 flex items-center gap-3 border-2 border-blue-200">
+<div id="map-view" class="p-5">
+  <div class="bg-gradient-to-r from-sky-300 to-blue-100 rounded-[1.7rem] p-4 flex gap-3 border-2 border-black">
     <div class="text-4xl">👑</div>
-    <div>
-      <div class="font-black">واصل التعلّم! 🎉</div>
-      <div class="text-xs text-gray-600">أكمل درس محافظات مصر اليوم</div>
-      <div class="mt-2 h-2 bg-white rounded-full overflow-hidden"><div class="h-full w-[70%] bg-green-500"></div></div>
-      <button onclick="openLesson(4)" class="mt-3 bg-black text-white px-4 py-2 rounded-xl text-sm font-black">ابدأ الدرس +80 XP</button>
+    <div><div class="font-black">واصل التعلّم!</div><div class="text-xs mt-1">أكمل درس البطالمة لتحافظ على السلسلة - دوس ابدأ الدرس تحت!</div>
+    <button onclick="openLesson(4)" class="mt-2 bg-black text-white px-4 py-2 rounded-full text-xs font-black">ابدأ الدرس +80 XP →</button>
     </div>
   </div>
-  <h2 class="font-black text-center mt-6 text-lg">خريطة التعلّم - 12 مرحلة</h2>
+  <h2 class="font-black text-center mt-6">خريطة التعلّم - 12 مرحلة</h2>
   <div id="levels" class="space-y-3 mt-4"></div>
-  <div class="mt-6 grid grid-cols-2 gap-3">
-    <button onclick="showLeaderboard()" class="bg-black text-white rounded-2xl py-3 font-black text-sm">👑 ملوك كفر الشيخ</button>
-    <button class="bg-yellow-400 rounded-2xl py-3 font-black text-sm">🔓 اشترك 100ج</button>
-  </div>
 </div>
 
-<div id="lesson-view" class="hidden p-5 pb-24">
+<div id="lesson-view" class="hidden p-5">
   <button onclick="showMap()" class="bg-gray-100 rounded-full px-4 py-2 text-sm font-bold">← رجوع للخريطة</button>
   <div id="lesson-content" class="mt-4"></div>
 </div>
 
-<div id="leader-view" class="hidden p-5 pb-24">
-  <button onclick="showMap()" class="bg-gray-100 rounded-full px-4 py-2 text-sm font-bold">← رجوع</button>
-  <h2 class="font-black text-xl mt-4">👑 لوحة ملوك المحافظات</h2>
-  <div class="mt-4 bg-green-50 border-2 border-green-300 rounded-3xl p-4 text-center">
-    <div class="font-black text-lg">Malek Kafr El-Sheikh - 2300 XP</div>
-    <div class="text-xs text-gray-600">فاضلك 150 XP وتبقى Malek Misr</div>
-  </div>
 </div>
-
-</div>
-
 <script>
 const lessons = [
- {id:1, title:"أدوات تحديد الموقع", icon:"🧭", xp:50, done:true},
- {id:2, title:"المصادر الأولية والثانوية", icon:"📜", xp:50, done:true},
- {id:3, title:"موقع مصر", icon:"🌍", xp:50, done:true},
- {id:4, title:"محافظات مصر", icon:"🗺️", xp:80, current:true},
- {id:5, title:"رموز بلدي", icon:"🦅", xp:80},
- {id:6, title:"جمال أرضنا", icon:"⛵", xp:80},
- {id:7, title:"الطقس والمناخ", icon:"🌦️", xp:80},
- {id:8, title:"البيئات المصرية", icon:"🏜️", xp:100},
- {id:9, title:"حياة مستدامة", icon:"♻️", xp:100},
- {id:10, title:"الحرف التراثية", icon:"🏺", xp:100},
- {id:11, title:"المستثمر الصغير", icon:"💰", xp:120},
- {id:12, title:"حقوق الطفل", icon:"🧒", xp:120},
+ {id:1,title:"أدوات تحديد الموقع",icon:"🧭",xp:50,done:true},
+ {id:2,title:"المصادر الأولية والثانوية",icon:"📜",xp:50,done:true},
+ {id:3,title:"موقع مصر",icon:"🌍",xp:50,done:true},
+ {id:4,title:"محافظات مصر",icon:"🗺️",xp:80,current:true},
+ {id:5,title:"رموز بلدي",icon:"🦅",xp:80},
+ {id:6,title:"جمال أرضنا",icon:"⛵",xp:80},
 ];
 function renderLevels(){
- const c=document.getElementById('levels');
- c.innerHTML=lessons.map(l=>{
-   let cls=l.done?"bg-yellow-100 border-yellow-300":l.current?"bg-sky-400 text-white border-blue-600 animate-pulse":"bg-gray-200 opacity-60";
-   return `<div onclick="openLesson(${l.id})" class="rounded-[1.7rem] p-4 flex gap-3 border-2 cursor-pointer ${cls}"><div class="text-3xl">${l.icon}</div><div><div class="font-black text-sm">${l.id}. ${l.title}</div><div class="text-xs">${l.xp} XP • ${l.done?'✅ مكتمل':l.current?'▶️ الحالي':'🔒'}</div></div></div>`;
+ document.getElementById('levels').innerHTML = lessons.map(l=>{
+   let cls = l.done ? "bg-yellow-100 border-yellow-300" : l.current ? "bg-sky-400 text-white border-blue-600" : "bg-gray-200 opacity-60";
+   return `<div onclick="openLesson(${l.id})" class="rounded-[1.7rem] p-4 flex gap-3 border-2 cursor-pointer ${cls}"><div class="text-3xl">${l.icon}</div><div><div class="font-black text-sm">${l.id}. ${l.title}</div><div class="text-[11px]">${l.xp} XP - دوس للفتح</div></div></div>`;
  }).join('');
 }
+renderLevels();
+
 function openLesson(id){
  document.getElementById('map-view').classList.add('hidden');
  document.getElementById('lesson-view').classList.remove('hidden');
- const l=lessons.find(x=>x.id===id);
- document.getElementById('lesson-content').innerHTML=`<h2 class="font-black text-xl">${l.icon} ${l.title}</h2><p class="mt-4 text-sm text-gray-600">محتوى الدرس ده هيكون بالذكاء الاصطناعي - فيديو + كويز + خريطة تفاعلية</p><button onclick="alert('برافو! بدأتي درس ' + l.title + ' وهتاخدي ' + l.xp + ' XP 🎉')" class="mt-6 bg-black text-white w-full py-3 rounded-2xl font-black">ابدأ الدرس +${l.xp} XP</button>`;
+ if(id===4){
+   document.getElementById('lesson-content').innerHTML = `
+   <div class="bg-black text-white rounded-[1.7rem] p-6 text-center"><div class="text-5xl">🗺️</div><div class="font-black text-xl mt-2">محافظات مصر الـ 27</div><div class="text-sm mt-2 text-yellow-300">الوجه البحري - القبلي - الصحراوي</div>
+   <button onclick="speakText('مصر فيها سبعة وعشرين محافظة')" class="mt-3 bg-yellow-400 text-black px-5 py-2 rounded-full font-black text-sm">🔊 شرح الملك</button></div>
+   <div class="mt-4 space-y-3">
+   <div class="bg-sky-50 border-2 rounded-2xl p-4"><div class="font-black">🎮 لعبة 1: فين كفر الشيخ؟</div><div class="grid grid-cols-2 gap-2 mt-2"><button onclick="checkAns(this,true)" class="bg-white border p-2 rounded-xl text-sm">كفر الشيخ - الوجه البحري</button><button onclick="checkAns(this,false)" class="bg-white border p-2 rounded-xl text-sm">كفر الشيخ - الصعيد</button></div></div>
+   <div class="bg-green-50 border-2 rounded-2xl p-4"><div class="font-black">🎮 لعبة 2: عاصمة مصر؟</div><div class="grid grid-cols-2 gap-2 mt-2"><button onclick="checkAns(this,true)" class="bg-white border p-2 rounded-xl text-sm">القاهرة</button><button onclick="checkAns(this,false)" class="bg-white border p-2 rounded-xl text-sm">الإسكندرية</button></div></div>
+   <div class="bg-yellow-100 border-2 border-black rounded-2xl p-4 text-center font-black">كسبت +80 XP 👑<br><button onclick="showMap()" class="mt-2 bg-black text-white px-6 py-2 rounded-full text-sm">ارجع للخريطة</button></div>
+   </div>`;
+ } else {
+   document.getElementById('lesson-content').innerHTML = `<div class="bg-black text-white rounded-3xl p-6 text-center"><div class="text-5xl">📚</div><div class="font-black mt-2">درس ${id}</div><div class="text-sm mt-1">قريبا</div><button onclick="showMap()" class="mt-3 bg-yellow-400 text-black px-5 py-2 rounded-full font-black text-sm">رجوع</button></div>`;
+ }
 }
-function showMap(){
- document.getElementById('lesson-view').classList.add('hidden');
- document.getElementById('leader-view').classList.add('hidden');
- document.getElementById('map-view').classList.remove('hidden');
-}
-function showLeaderboard(){
- document.getElementById('map-view').classList.add('hidden');
- document.getElementById('leader-view').classList.remove('hidden');
-}
-renderLevels();
+function showMap(){document.getElementById('lesson-view').classList.add('hidden');document.getElementById('map-view').classList.remove('hidden');}
+function checkAns(btn,ok){btn.style.background = ok ? '#22c55e' : '#ef4444'; btn.style.color='white'; if(ok){btn.innerText+=' ✅ صح';} else {btn.innerText+=' ❌';}}
+function speakText(t){if('speechSynthesis' in window){let u=new SpeechSynthesisUtterance(t);u.lang='ar-EG';speechSynthesis.speak(u);} else alert(t);}
 </script>
 </body>
 </html>
