@@ -1,5 +1,5 @@
 
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
@@ -33,6 +33,7 @@
       <div class="font-black">واصل التعلّم! 🎉</div>
       <div class="text-xs text-gray-600">أكمل درس محافظات مصر اليوم</div>
       <div class="mt-2 h-2 bg-white rounded-full overflow-hidden"><div class="h-full w-[70%] bg-green-500"></div></div>
+      <button onclick="openLesson(4)" class="mt-3 bg-black text-white px-4 py-2 rounded-xl text-sm font-black">ابدأ الدرس +80 XP</button>
     </div>
   </div>
   <h2 class="font-black text-center mt-6 text-lg">خريطة التعلّم - 12 مرحلة</h2>
@@ -85,7 +86,7 @@ function openLesson(id){
  document.getElementById('map-view').classList.add('hidden');
  document.getElementById('lesson-view').classList.remove('hidden');
  const l=lessons.find(x=>x.id===id);
- document.getElementById('lesson-content').innerHTML=`<h2 class="font-black text-xl">${l.icon} ${l.title}</h2><p class="mt-4 text-sm text-gray-600">محتوى الدرس ده هيكون بالذكاء الاصطناعي - فيديو + كويز + خريطة تفاعلية</p><button class="mt-6 bg-black text-white w-full py-3 rounded-2xl font-black">ابدأ الدرس +${l.xp} XP</button>`;
+ document.getElementById('lesson-content').innerHTML=`<h2 class="font-black text-xl">${l.icon} ${l.title}</h2><p class="mt-4 text-sm text-gray-600">محتوى الدرس ده هيكون بالذكاء الاصطناعي - فيديو + كويز + خريطة تفاعلية</p><button onclick="alert('برافو! بدأتي درس ' + l.title + ' وهتاخدي ' + l.xp + ' XP 🎉')" class="mt-6 bg-black text-white w-full py-3 rounded-2xl font-black">ابدأ الدرس +${l.xp} XP</button>`;
 }
 function showMap(){
  document.getElementById('lesson-view').classList.add('hidden');
@@ -100,4 +101,3 @@ renderLevels();
 </script>
 </body>
 </html>
-
