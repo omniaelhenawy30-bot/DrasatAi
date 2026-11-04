@@ -1,128 +1,183 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DrasatAi - أهلا بملوك مصر!</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
+<title>DrasatAi - أهلا بملوك مصر 👑</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;800;900&display=swap" rel="stylesheet">
 <style>
-*{font-family:'Cairo';box-sizing:border-box;margin:0;padding:0}
-body{background:#FFF8E1;color:#222}
-.header{background:#6C5CE7;color:#fff;padding:14px;text-align:center;position:sticky;top:0;z-index:99}
-.container{max-width:500px;margin:auto;padding:12px 12px 80px}
-.hero{background:linear-gradient(135deg,#6C5CE7,#A29BFE);color:#fff;border-radius:22px;padding:22px;text-align:center;margin:12px 0}
-.hero h1{font-size:24px;font-weight:900}
-.hero p{font-size:13px;margin-top:6px;opacity:.95}
-.name-box{background:#fff;border-radius:18px;padding:14px;margin:12px 0;box-shadow:0 4px 0 #E9E8FF;text-align:center}
-.name-box input{width:100%;padding:12px;border:2px solid #E9E8FF;border-radius:12px;text-align:center;font-size:15px;font-weight:800;margin:8px 0}
-.subjects{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
-.sub-card{background:#fff;border-radius:18px;padding:14px;text-align:center;box-shadow:0 4px 0 #E9E8FF;border:2px solid transparent;cursor:pointer}
-.sub-card.active{border-color:#6C5CE7;background:#F3F0FF;transform:scale(1.02)}
-.sub-card b{display:block;margin-top:4px}
-.start-btn{width:100%;padding:16px;background:linear-gradient(135deg,#FFD600,#FFA502);border:none;border-radius:16px;font-size:18px;font-weight:900;cursor:pointer;margin:12px 0;box-shadow:0 5px 0 #E67E22}
-.film-view{display:none}
-.film{width:100%;background:#1A1A2E;border-radius:25px;overflow:hidden;margin:12px 0;border:4px solid #2D2D44;box-shadow:0 10px 30px #0003}
-.screen{height:420px;position:relative;background:#000;overflow:hidden}
-.blackboard{position:absolute;top:8%;left:5%;width:90%;height:52%;background:#2C3E50;border:6px solid #8B4513;border-radius:8px;z-index:2;display:flex;flex-direction:column;padding:10px;color:#fff}
-.chalk-text{font-size:18px;font-weight:900;color:#FFEB3B;line-height:1.6}
-.chalk-white{color:#fff;font-size:15px;margin-top:6px}
-.map-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
-.tag{background:#FFD600;color:#000;padding:3px 8px;border-radius:10px;font-size:11px;font-weight:900}
-.bubble{position:absolute;bottom:12px;left:5%;width:90%;background:#fff;color:#000;padding:12px;border-radius:18px 18px 18px 0;font-size:13px;line-height:1.7;z-index:5;box-shadow:0 4px 0 #0003;min-height:70px}
-.bubble::after{content:'ميس نور بتتكلم...';position:absolute;top:-18px;right:10px;background:#6C5CE7;color:#fff;font-size:10px;padding:2px 8px;border-radius:10px}
-.controls{background:#2D2D44;padding:12px;display:flex;align-items:center;gap:10px;color:#fff}
-.btn{width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#6C5CE7,#A29BFE);border:3px solid #fff;color:#fff;font-size:22px;cursor:pointer}
-.progress{flex:1;height:14px;background:#1A1A2E;border-radius:10px;overflow:hidden;border:2px solid #444}
-.fill{height:100%;width:0%;background:linear-gradient(90deg,#FFD600,#6C5CE7);transition:.4s}
-.chapters{display:flex;gap:7px;overflow-x:auto;padding:10px;background:#1A1A2E}
-.ch{padding:8px 14px;background:#2D2D44;color:#aaa;border-radius:20px;font-size:12px;white-space:nowrap;cursor:pointer}
-.ch.active{background:#FFD600;color:#000;font-weight:900}
-.back{width:100%;padding:12px;background:#fff;border:2px solid #E9E8FF;border-radius:12px;margin:10px 0;font-weight:800;cursor:pointer}
+*{font-family:'Cairo',sans-serif;box-sizing:border-box;margin:0;padding:0}
+body{background:#FFF8E1;color:#1a1a1a}
+.header{background:linear-gradient(135deg,#6C5CE7,#8B7DFF);color:#fff;padding:14px;text-align:center;position:sticky;top:0;z-index:99;box-shadow:0 2px 15px #6C5CE760}
+.container{max-width:520px;margin:auto;padding:12px 12px 100px}
+.hero{background:linear-gradient(135deg,#6C5CE7 0%,#A29BFE 100%);color:#fff;border-radius:24px;padding:26px 20px;text-align:center;margin:14px 0;position:relative;overflow:hidden}
+.hero::before{content:'👑';position:absolute;font-size:80px;opacity:.15;top:-10px;left:-10px;transform:rotate(-15deg)}
+.hero h1{font-size:26px;font-weight:900;position:relative}
+.hero p{font-size:14px;margin-top:8px;opacity:.95;position:relative}
+.card{background:#fff;border-radius:20px;padding:16px;margin:14px 0;box-shadow:0 6px 0 #E9E8FF, 0 8px 20px #00000008;border:1px solid #F0EEFF}
+.card b{display:block;margin-bottom:8px}
+.input{width:100%;padding:13px;border:2.5px solid #E9E8FF;border-radius:14px;text-align:center;font-size:16px;font-weight:800;outline:none;transition:.2s}
+.input:focus{border-color:#6C5CE7;background:#F8F7FF}
+.subjects{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+.sub{border-radius:20px;padding:18px 10px;text-align:center;cursor:pointer;border:2.5px solid #F0EEFF;background:#fff;transition:.2s;box-shadow:0 4px 0 #F0EEFF}
+.sub.active{border-color:#6C5CE7;background:#F3F0FF;transform:translateY(-3px);box-shadow:0 7px 0 #6C5CE7}
+.sub .emoji{font-size:34px}
+.sub b{font-size:14px;margin-top:6px;display:block}
+.sub span{font-size:11px;color:#888}
+.btn-main{width:100%;padding:16px;background:linear-gradient(135deg,#FFD600,#FFA502);border:none;border-radius:16px;font-size:18px;font-weight:900;cursor:pointer;box-shadow:0 6px 0 #E67E22;transition:.1s}
+.btn-main:active{transform:translateY(4px);box-shadow:0 2px 0 #E67E22}
+.view{display:none}
+.video-box{border-radius:20px;overflow:hidden;background:#000;aspect-ratio:16/9;position:relative;margin-bottom:12px}
+.video-box iframe{width:100%;height:100%;border:none}
+.lesson-title{font-size:20px;font-weight:900;color:#6C5CE7;margin:8px 0}
+.lesson-text{background:#F8F7FF;border-radius:14px;padding:14px;line-height:1.9;font-size:14px;border-right:4px solid #6C5CE7}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.tag{background:#FFD600;color:#000;padding:5px 10px;border-radius:20px;font-size:12px;font-weight:800}
+.quiz-btn{width:100%;padding:13px;margin:6px 0;background:#fff;border:2.5px solid #E9E8FF;border-radius:14px;text-align:right;font-weight:700;cursor:pointer;transition:.2s;font-size:14px}
+.quiz-btn:hover{border-color:#6C5CE7;background:#F8F7FF}
+.quiz-btn.ok{background:#4CAF50!important;color:#fff!important;border-color:#4CAF50!important}
+.quiz-btn.no{background:#FF5252!important;color:#fff!important;border-color:#FF5252!important}
+.back{background:#fff;border:2.5px solid #E9E8FF;border-radius:14px;padding:12px;width:100%;font-weight:800;cursor:pointer;margin-bottom:12px}
+.progress-line{display:flex;gap:6px;margin:12px 0}
+.dot{flex:1;height:8px;background:#E9E8FF;border-radius:10px;transition:.3s}
+.dot.done{background:#4CAF50}
+.dot.active{background:#6C5CE7}
+.score-card{background:linear-gradient(135deg,#6C5CE7,#A29BFE);color:#fff;border-radius:20px;padding:16px;text-align:center;margin:14px 0}
 </style>
 </head>
 <body>
-<div class="header"><b>👑 DrasatAi - أهلا بملوك مصر!</b><p style="font-size:11px;opacity:.9">ميس مصرية بتشرح على السبورة - 25 دقيقة</p></div>
+<div class="header">👑 <b>DrasatAi - أهلا بملوك مصر!</b></div>
 <div class="container">
 
-<!-- الواجهة الأولى - اللي انتي عايزاها -->
-<div id="landing">
+<!-- الواجهة 1: ترحيب -->
+<div id="viewHome">
 <div class="hero">
 <h1>أهلا بملوك مصر! 👑</h1>
-<p>اتعلم بكرتون بيتحرك - 25 دقيقة وهتبقى حافظ الدرس</p>
+<p>اتعلم دراسات رابعة بفيديوهات حقيقية + كويزات + تاج الملك</p>
 </div>
 
-<div class="name-box">
-<b>👋 اكتب اسمك يا ملك!</b>
-<input id="studentName" placeholder="مثال: يوسف - ملك مصر">
-<p style="font-size:11px;color:#888">هنحطه في لوحة الشرف</p>
+<div class="card">
+<b>👋 اسمك ايه يا ملك؟</b>
+<input id="nameInput" class="input" placeholder="مثال: يوسف">
+<p style="font-size:11px;color:#888;text-align:center;margin-top:6px">هنحطه في لوحة الشرف بتاعة ملوك مصر</p>
 </div>
 
 <div class="subjects">
-<div class="sub-card active" onclick="selectSub(this,'دراسات')"><div style="font-size:28px">🗺️</div><b>دراسات اجتماعية</b><span style="font-size:11px;color:#6C5CE7">27 محافظة</span></div>
-<div class="sub-card" onclick="selectSub(this,'علوم')"><div style="font-size:28px">🔬</div><b>علوم</b><span style="font-size:11px;color:#888">قريبا</span></div>
-<div class="sub-card" onclick="selectSub(this,'عربي')"><div style="font-size:28px">📚</div><b>عربي</b><span style="font-size:11px;color:#888">قريبا</span></div>
-<div class="sub-card" onclick="selectSub(this,'رياضة')"><div style="font-size:28px">🔢</div><b>رياضة</b><span style="font-size:11px;color:#888">قريبا</span></div>
+<div class="sub active" data-sub="دراسات" onclick="pickSub(this)"><div class="emoji">🗺️</div><b>دراسات اجتماعية</b><span>27 محافظة - 5 دروس</span></div>
+<div class="sub" style="opacity:.6"><div class="emoji">🔬</div><b>علوم</b><span>قريباً</span></div>
+<div class="sub" style="opacity:.6"><div class="emoji">📚</div><b>عربي</b><span>قريباً</span></div>
+<div class="sub" style="opacity:.6"><div class="emoji">🔢</div><b>رياضة</b><span>قريباً</span></div>
 </div>
 
-<button class="start-btn" onclick="startApp()">🚀 ابدأ يا ملك مصر!</button>
-<p style="text-align:center;font-size:11px;color:#888">فيلم كرتون 25 دقيقة + امتحان + تاج ملك مصر</p>
+<button class="btn-main" onclick="goLessons()">🚀 ابدأ يا ملك مصر!</button>
+<p style="text-align:center;font-size:11px;color:#999;margin-top:8px">5 فيديوهات حقيقية • كل فيديو دقيقتين • + 500 نقطة للتاج</p>
 </div>
 
-<!-- واجهة الفيلم - بتظهر بعد ما يدوس ابدأ -->
-<div id="filmView" class="film-view">
-<button class="back" onclick="goBack()">⬅️ رجوع للواجهة الرئيسية</button>
-<div class="film">
-<div class="screen">
-<div class="blackboard" id="board">
-<div class="chalk-text" id="boardTitle">درس اليوم: محافظات مصر</div>
-<div class="chalk-white" id="boardText">27 محافظة</div>
-<div class="map-tags" id="boardTags"></div>
+<!-- الواجهة 2: الدروس -->
+<div id="viewLessons" class="view">
+<button class="back" onclick="goHome()">⬅️ رجوع للرئيسية</button>
+
+<div class="progress-line" id="progressDots"></div>
+
+<div class="score-card">
+<div style="font-size:13px;opacity:.9">نقاطك يا <span id="kingNameShow">ملك مصر</span></div>
+<div style="font-size:28px;font-weight:900" id="scoreShow">0 🔥</div>
 </div>
-<div class="bubble" id="bubble">إزيك يا ملك مصر! دوس بلاي يلا! 🎬👑</div>
-</div>
-<div class="controls">
-<button class="btn" id="playBtn" onclick="toggle()">▶️</button>
-<div class="progress"><div class="fill" id="fill"></div></div>
-<div id="time" style="font-size:11px;min-width:75px">00:00 / 25:00</div>
-</div>
-<div class="chapters" id="chapters"></div>
+
+<div id="lessonContainer"></div>
+
+<div style="display:flex;gap:10px;margin-top:14px">
+<button class="back" style="flex:1" onclick="prevLesson()">⬅️ السابق</button>
+<button class="btn-main" style="flex:1.5" onclick="nextLesson()">التالي ➡️</button>
 </div>
 </div>
 
 </div>
 
 <script>
-let selectedSub='دراسات';
-function selectSub(el,sub){document.querySelectorAll('.sub-card').forEach(c=>c.classList.remove('active'));el.classList.add('active');selectedSub=sub;}
-function startApp(){
-let name=document.getElementById('studentName').value||'ملك مصر';
-localStorage.setItem('kingName',name);
-document.getElementById('landing').style.display='none';
-document.getElementById('filmView').style.display='block';
-go(0);
+const lessons=[
+{
+title:"الدرس 1: يعني ايه محافظة؟",
+yt:"https://www.youtube.com/embed/5V5M3S5s9Xo?rel=0",
+text:"مصر متقسمة 27 محافظة زي أوض البيت الكبير! كل محافظة ليها محافظ بيديرها وليها عاصمة. العاصمة بتاعة مصر كلها هي القاهرة. التقسيمة دي عشان نعرف ندير البلد كويس!",
+tags:["27 محافظة","محافظ","عاصمة"],
+q:"القاهرة عاصمة ايه؟",
+opts:[["مصر كلها",true],["كفر الشيخ بس",false],["اسكندرية",false]]
+},
+{
+title:"الدرس 2: الوجه البحري - 13 محافظة",
+yt:"https://www.youtube.com/embed/3SsK-cxlj_w?rel=0",
+text:"الوجه البحري فوق في شمال مصر على البحر المتوسط! 13 محافظة! فيه كفر الشيخ و البحيرة و الدقهلية و الغربية و المنوفية و الشرقية و دمياط و بورسعيد و الاسماعيلية و السويس و القليوبية و الاسكندرية و كفر الشيخ بلدنا الجميلة اللي بتطل على البحر و بتعمل رز و سمك!",
+tags:["13 محافظة","البحر المتوسط","كفر الشيخ - بلدنا"],
+q:"الوجه البحري كام محافظة؟",
+opts:[["13 محافظة",true],["9 محافظات",false],["5 محافظات",false]]
+},
+{
+title:"الدرس 3: الوجه القبلي - 9 محافظات",
+yt:"https://www.youtube.com/embed/9p5y1q2L6y0?rel=0",
+text:"الوجه القبلي تحت في جنوب مصر على نهر النيل! 9 محافظات: الجيزة فيها الأهرامات وأبو الهول، الفيوم، بني سويف، المنيا، أسيوط، سوهاج، قنا، الأقصر فيها تلت آثار العالم، أسوان فيها السد العالي!",
+tags:["9 محافظات","الأهرامات","الأقصر - تلت الآثار","أسوان - السد"],
+q:"فين الأهرامات؟",
+opts:[["الجيزة",true],["دمياط",false],["بورسعيد",false]]
+},
+{
+title:"الدرس 4: المحافظات الحدودية - الكبار",
+yt:"https://www.youtube.com/embed/2Vv-BfVoq4g?rel=0",
+text:"دول 5 محافظات بس كل واحدة قد الدنيا! الوادي الجديد أكبر محافظة في مصر كلها! مطروح، البحر الأحمر، شمال سيناء، جنوب سيناء فيها شرم الشيخ و جبل سانت كاترين! كلها صحرا و جبال و بحر!",
+tags:["5 محافظات","الوادي الجديد - أكبر واحدة","سيناء","مطروح"],
+q:"أكبر محافظة في مصر؟",
+opts:[["الوادي الجديد",true],["القاهرة",false],["دمياط",false]]
+},
+{
+title:"الدرس 5: المراجعة والتاج 👑",
+yt:"https://www.youtube.com/embed/jNQXAC9IVRw?rel=0",
+text:"برافو يا ملوك مصر! خلصنا! 27 محافظة = 13 بحري + 9 قبلي + 5 حدودية! أصغر محافظة دمياط، أكبر محافظة الوادي الجديد، عاصمة مصر القاهرة! دلوقتي انت بقيت ملك مصر بجد و تستاهل التاج الذهبي! 👑",
+tags:["27 محافظة","دمياط أصغر محافظة","الوادي الجديد أكبر محافظة","التاج 👑"],
+q:"أصغر محافظة؟",
+opts:[["دمياط",true],["الوادي الجديد",false],["القاهرة",false]]
 }
-function goBack(){
-document.getElementById('filmView').style.display='none';
-document.getElementById('landing').style.display='block';
-stop();
-}
-
-const films=[
-{title:"أهلا بملوك مصر! 👑",text:"إزيكوا يا ملوك مصر! أنا ميس نور! النهاردة هنعمل فيلم كرتون جامد جدا 25 دقيقة هنلف فيه مصر كلها! جاهزين يا ملوك؟",tags:["مصر","27 محافظة","ملوك مصر"],board:"أهلا بملوك مصر! 👑"},
-{title:"الوجه البحري 🌊",text:"الوجه البحري 13 محافظة يا ملوك! كفر الشيخ ودمياط أصغر محافظة واسكندرية عروس البحر!",tags:["كفر الشيخ","دمياط","اسكندرية"],board:"الوجه البحري = 13 محافظة"},
-{title:"الوجه القبلي 🏜️",text:"الوجه القبلي 9 محافظات من الجيزة لحد أسوان! الأهرامات والأقصر تلت آثار العالم!",tags:["الجيزة","الأقصر","أسوان"],board:"الوجه القبلي = 9 محافظات"},
-{title:"الحدودية 🏔️",text:"الحدودية 5 محافظات بس قد الدنيا! الوادي الجديد أكبر محافظة!",tags:["الوادي الجديد","مطروح","سيناء"],board:"الحدودية = 5 محافظات"},
-{title:"برافو يا ملوك! 👑",text:"برافو خلصنا يا ملوك مصر! عرفتوا الـ 27 محافظة!",tags:["27 محافظة","التاج"],board:"برافو يا ملوك! 👑"}
 ];
-let cur=0,prog=0,playing=false,iv;
-let chapDiv=document.getElementById('chapters');
-films.forEach((f,i)=>{let d=document.createElement('div');d.className='ch'+(i===0?' active':'');d.innerText=(i+1)+'. '+f.title.split(' ')[0];d.onclick=()=>go(i);chapDiv.appendChild(d);});
-function toggle(){playing=!playing;document.getElementById('playBtn').innerText=playing?'⏸️':'▶️';if(playing)start();else stop();}
-function start(){iv=setInterval(()=>{prog+=0.35;if(prog>100)prog=100;document.getElementById('fill').style.width=prog+'%';let m=Math.floor(prog*25/100);document.getElementById('time').innerText=`${String(m).padStart(2,'0')}:00 / 25:00`;let c=Math.floor(prog/20);if(c!==cur)go(c);if(prog>=100){stop();document.getElementById('playBtn').innerText='🔁';}},300);speak();}
-function stop(){clearInterval(iv);playing=false;speechSynthesis.cancel();}
-function go(i){cur=i;document.querySelectorAll('.ch').forEach((el,idx)=>{el.classList.toggle('active',idx===i);});let f=films[i];document.getElementById('boardTitle').innerText=f.title;document.getElementById('boardText').innerText=f.board;document.getElementById('boardTags').innerHTML=f.tags.map(t=>`<span class="tag">${t}</span>`).join('');document.getElementById('bubble').innerText=f.text;if(playing)speak();}
-function speak(){speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(films[cur].text);u.lang='ar-EG';u.rate=0.85;speechSynthesis.speak(u);}
+
+let cur=0, score=0;
+function pickSub(el){document.querySelectorAll('.sub').forEach(s=>s.classList.remove('active'));el.classList.add('active');}
+function goLessons(){
+let name=document.getElementById('nameInput').value.trim()||'ملك مصر';
+localStorage.setItem('kingName',name);
+document.getElementById('kingNameShow').innerText=name;
+document.getElementById('viewHome').style.display='none';
+document.getElementById('viewLessons').style.display='block';
+buildDots();
+renderLesson();
+}
+function goHome(){document.getElementById('viewLessons').style.display='none';document.getElementById('viewHome').style.display='block';}
+function buildDots(){
+let c=document.getElementById('progressDots');c.innerHTML='';
+lessons.forEach((_,i)=>{let d=document.createElement('div');d.className='dot'+(i<cur?' done':'')+(i===cur?' active':'');c.appendChild(d);});
+}
+function renderLesson(){
+let L=lessons[cur];
+buildDots();
+document.getElementById('lessonContainer').innerHTML=`
+<div class="card">
+<div class="video-box"><iframe src="${L.yt}" allowfullscreen></iframe></div>
+<div class="lesson-title">${L.title}</div>
+<div class="lesson-text">${L.text}</div>
+<div class="tags">${L.tags.map(t=>`<span class='tag'>${t}</span>`).join('')}</div>
+<div class="card" style="margin:12px 0 0 0;box-shadow:none;border:2px dashed #FFD600">
+<b>🤔 سؤال يا ملك: ${L.q}</b>
+${L.opts.map(o=>`<button class='quiz-btn' onclick='checkAns(this,${o[1]})'>${o[0]}</button>`).join('')}
+</div>
+</div>`;
+document.getElementById('scoreShow').innerText=score+' 🔥';
+window.scrollTo({top:0,behavior:'smooth'});
+}
+function checkAns(btn,ok){
+if(btn.classList.contains('ok')||btn.classList.contains('no')) return;
+if(ok){btn.classList.add('ok');score+=100;document.getElementById('scoreShow').innerText=score+' 🔥';}
+else{btn.classList.add('no');}
+}
+function nextLesson(){if(cur<lessons.length-1){cur++;renderLesson();}else{alert('🎉 مبروك يا '+localStorage.getItem('kingName')+'! خلصت و بقيت ملك مصر الحقيقي! 👑 نقاطك: '+score);}}
+function prevLesson(){if(cur>0){cur--;renderLesson();}}
 </script>
 </body>
 </html>
