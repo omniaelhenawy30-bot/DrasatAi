@@ -3,65 +3,106 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DrasatAi - ملوك مصر 👑</title>
+<title>DrasatAi - ملوك مصر PRO</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
-<style>*{font-family:'Cairo'}</style>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+*{font-family:'Cairo'}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+@keyframes gradient{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+@keyframes shine{0%{transform:translateX(-100%)}100%{transform:translateX(200%)}}
+.float{animation:float 3s ease-in-out infinite}
+.gradient-anim{background:linear-gradient(270deg,#6C5CE7,#A29BFE,#FFD600,#6C5CE7);background-size:400% 400%;animation:gradient 8s ease infinite}
+.shine{position:relative;overflow:hidden}
+.shine::after{content:'';position:absolute;top:0;left:0;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);animation:shine 2.5s infinite}
+.card-hover{transition:all .4s cubic-bezier(.175,.885,.32,1.275)}
+.card-hover:hover{transform:translateY(-8px) scale(1.02);box-shadow:0 20px 40px rgba(108,92,231,.2)}
+.reveal{opacity:0;transform:translateY(30px);transition:all .8s ease}
+.reveal.active{opacity:1;transform:translateY(0)}
+</style>
 </head>
-<body class="bg-[#FFFDF5]">
-<div id="root"></div>
+<body class="bg-[#FFFDF5] overflow-x-hidden">
 
-<script type="text/babel">
-const { useState } = React;
-function App() {
-  const [open, setOpen] = useState(null);
-  const lessons = [
-    { id:1, emoji:"🌊", color:"bg-[#FFF8E1]", title:"الوجه البحري", desc:"13 محافظة - كفر الشيخ بلدنا!", time:"2:15", video:"https://www.youtube.com/embed/3SsK-cxlj_w", text:"الوجه البحري 13 محافظة على البحر المتوسط، فيه كفر الشيخ بتاعتنا بتعمل رز وسمك ودمياط أصغر محافظة!" },
-    { id:2, emoji:"🏜️", color:"bg-[#FFF0F0]", title:"الوجه القبلي", desc:"الأهرامات والأقصر وأسوان", time:"2:30", video:"https://www.youtube.com/embed/9p5y1q2L6y0", text:"من الجيزة لحد أسوان! الجيزة فيها الأهرامات والأقصر تلت آثار العالم!" },
-    { id:3, emoji:"🏔️", color:"bg-[#F0FFF4]", title:"المحافظات الحدودية", desc:"الوادي الجديد أكبر محافظة!", time:"2:05", video:"https://www.youtube.com/embed/2Vv-BfVoq4g", text:"5 محافظات بس كل واحدة قد الدنيا! الوادي الجديد أكبر محافظة في مصر!" },
-  ];
-  return (
-    <div dir="rtl" className="min-h-screen">
-      <nav className="max-w-6xl mx-auto flex justify-between items-center p-4">
-        <div className="flex items-center gap-2 font-black text-xl"><span className="bg-[#6C5CE7] text-white w-9 h-9 rounded-xl flex items-center justify-center">👑</span> DrasatAi</div>
-        <div className="bg-[#FFF4CC] px-4 py-2 rounded-full text-sm font-bold">🔥 27 محافظة</div>
-      </nav>
-      <div className="max-w-6xl mx-auto px-4 mt-6 grid md:grid-cols-2 gap-6 items-center">
-        <div>
-          <h1 className="text-5xl font-black leading-tight">أهلا<br/><span className="text-[#6C5CE7]">بملوك مصر!</span> 👑</h1>
-          <p className="text-gray-600 mt-4">ده موقع React بجد شغال على GitHub بتاعك من غير تسجيل دخول</p>
-          <button onClick={()=>document.getElementById('lessons').scrollIntoView({behavior:'smooth'})} className="mt-6 bg-[#FFD600] px-7 py-3 rounded-2xl font-black shadow-[0_5px_0_#E67E22]">ابدأ دلوقتي 🚀</button>
-        </div>
-        <div className="bg-gradient-to-br from-[#6C5CE7] to-[#A29BFE] rounded-[32px] p-6 text-white min-h-[300px] flex flex-col justify-end">
-          <div className="bg-white text-black rounded-2xl p-4"><b>الوجه البحري</b><p className="text-xs text-gray-500 mt-1">كفر الشيخ • دمياط • اسكندرية...</p></div>
-        </div>
-      </div>
-      <div id="lessons" className="max-w-6xl mx-auto px-4 mt-16">
-        <h2 className="text-2xl font-black">📚 دروسك يا ملك</h2>
-        <div className="grid md:grid-cols-3 gap-4 mt-6">
-          {lessons.map(l=>(
-            <div key={l.id} onClick={()=>setOpen(l)} className="bg-white rounded-[20px] p-3 border-2 border-gray-100 hover:border-[#6C5CE7] cursor-pointer hover:-translate-y-1 transition-all">
-              <div className={`${l.color} rounded-[16px] h-32 flex items-center justify-center text-5xl`}>{l.emoji}</div>
-              <div className="p-2"><b className="block mt-2">{l.title}</b><p className="text-xs text-gray-500 mt-1">{l.desc}</p><span className="bg-black text-white px-2 py-1 rounded-full text-xs mt-2 inline-block">▶️ {l.time}</span></div>
-            </div>
-          ))}
-        </div>
-      </div>
-      {open && (
-        <div className="fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50" onClick={()=>setOpen(null)}>
-          <div className="bg-white rounded-[24px] max-w-2xl w-full overflow-hidden" onClick={e=>e.stopPropagation()}>
-            <div className="aspect-video bg-black"><iframe className="w-full h-full" src={open.video+"?autoplay=1"} allowFullScreen></iframe></div>
-            <div className="p-5"><h3 className="font-black text-xl">{open.title}</h3><p className="text-sm text-gray-600 mt-2">{open.text}</p><button onClick={()=>setOpen(null)} className="w-full mt-4 bg-[#6C5CE7] text-white py-3 rounded-xl font-bold">تمام يا ملك! 👑</button></div>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+<!-- NAV Glass -->
+<nav class="fixed top-0 w-full z-50 backdrop-blur-xl bg-white/70 border-b border-black/5">
+<div class="max-w-6xl mx-auto flex justify-between items-center p-4">
+<div class="flex items-center gap-3"><div class="w-10 h-10 rounded-2xl gradient-anim flex items-center justify-center text-white font-black shadow-lg">👑</div><b class="text-xl">DrasatAi <span class="text-[10px] bg-black text-white px-2 py-0.5 rounded-full -top-2 relative">PRO</span></b></div>
+<div class="hidden md:flex gap-2 text-xs font-bold">
+<span class="px-3 py-1.5 bg-white rounded-full border shadow-sm">✨ احترافي</span>
+<span class="px-3 py-1.5 bg-[#FFD600] rounded-full shadow-sm">🔥 حركات عالية</span>
+</div>
+</div>
+</nav>
+
+<!-- HERO PRO -->
+<div class="max-w-6xl mx-auto px-4 pt-28 pb-10 grid md:grid-cols-2 gap-8 items-center">
+<div class="reveal active">
+<div class="inline-flex items-center gap-2 bg-white border shadow-sm px-3 py-1 rounded-full text-[11px] font-bold"><span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span> 2,847 ملك بيتعلم دلوقتي LIVE</div>
+<h1 class="text-[44px] md:text-[60px] font-black leading-[0.9] mt-4">أهلا<br><span class="gradient-anim bg-clip-text text-transparent">بملوك مصر!</span><br>👑</h1>
+<p class="text-gray-500 mt-4 text-[15px] leading-7">موقع بجد مش فورم - معمول بـ animations و glassmorphism و hover effects زي مواقع الشركات العالمية.</p>
+<div class="flex gap-3 mt-6">
+<button onclick="document.getElementById('work').scrollIntoView({behavior:'smooth'})" class="shine bg-black text-white px-7 py-3.5 rounded-2xl font-black text-sm hover:scale-105 transition">شوف الشغل الاحترافي 🚀</button>
+<div class="flex items-center gap-2 bg-white border px-3 py-2 rounded-2xl"><div class="flex -space-x-2"><div class="w-7 h-7 rounded-full bg-purple-200 border-2 border-white"></div><div class="w-7 h-7 rounded-full bg-yellow-200 border-2 border-white"></div><div class="w-7 h-7 rounded-full bg-green-200 border-2 border-white"></div></div><span class="text-[11px] font-bold">4.9/5 ⭐</span></div>
+</div>
+</div>
+
+<div class="relative reveal active" style="transition-delay:.2s">
+<div class="absolute -top-10 -right-10 w-40 h-40 bg-[#A29BFE] rounded-full blur-[60px] opacity-60"></div>
+<div class="absolute -bottom-10 -left-10 w-40 h-40 bg-[#FFD600] rounded-full blur-[60px] opacity-60"></div>
+<div class="relative bg-gradient-to-br from-white to-[#F8F7FF] border border-white rounded-[32px] p-5 shadow-[0_20px_60px_rgba(0,0,0,.1)] backdrop-blur">
+<div class="flex justify-between items-center"><b class="text-sm">🗺️ مصر التفاعلية PRO</b><span class="text-[10px] bg-green-100 text-green-700 px-2 py-1 rounded-full">● LIVE</span></div>
+<div class="mt-4 grid grid-cols-3 gap-2">
+<div class="bg-white rounded-2xl p-3 border shadow-sm card-hover"><b class="text-[#6C5CE7]">13</b><p class="text-[10px] font-bold mt-1">بحري 🌊</p><div class="h-1 bg-[#6C5CE7] rounded-full mt-2"></div></div>
+<div class="bg-white rounded-2xl p-3 border shadow-sm card-hover" style="transition-delay:.1s"><b class="text-[#E67E22]">9</b><p class="text-[10px] font-bold mt-1">قبلي 🏜️</p><div class="h-1 bg-[#E67E22] rounded-full mt-2"></div></div>
+<div class="bg-white rounded-2xl p-3 border shadow-sm card-hover" style="transition-delay:.2s"><b class="text-[#4CAF50]">5</b><p class="text-[10px] font-bold mt-1">حدودية 🏔️</p><div class="h-1 bg-[#4CAF50] rounded-full mt-2"></div></div>
+</div>
+<div class="mt-4 bg-black text-white rounded-2xl p-3 flex justify-between items-center"><span class="text-xs">👑 كفر الشيخ - بلد الملوك</span><span class="text-[10px] bg-[#FFD600] text-black px-2 py-1 rounded-full font-black">TOP</span></div>
+</div>
+<div class="float absolute -top-4 -left-4 bg-white border shadow-xl rounded-2xl px-3 py-2 text-xs font-bold">✨ Animation احترافي</div>
+</div>
+</div>
+
+<!-- WORK -->
+<div id="work" class="max-w-6xl mx-auto px-4 mt-10">
+<div class="flex justify-between items-end"><h2 class="text-2xl font-black">الدروس بحركات عالية ✨</h2><span class="text-[11px] text-gray-400">Hover وشوف الحركة</span></div>
+<div class="grid md:grid-cols-3 gap-4 mt-6" id="grid"></div>
+</div>
+
+<div class="max-w-6xl mx-auto px-4 mt-14 grid md:grid-cols-2 gap-4">
+<div class="bg-black text-white rounded-[24px] p-6 relative overflow-hidden"><div class="absolute top-0 right-0 w-32 h-32 bg-[#6C5CE7] blur-[40px] opacity-50"></div><b>🎮 الألعاب الاحترافية</b><p class="text-xs text-white/60 mt-2">Drag & Drop + Confetti + نقاط بتطير</p><button onclick="alert('هتشتغل لما تخلصي الدروس يا ملكة 👑')" class="mt-4 bg-white text-black px-4 py-2 rounded-full text-xs font-black">العب دلوقتي</button></div>
+<div class="bg-[#FFD600] rounded-[24px] p-6 relative overflow-hidden"><b>🏆 لوحة المتصدرين LIVE</b><div class="mt-3 space-y-2"><div class="bg-white rounded-full p-2 flex justify-between text-xs font-bold"><span>👑 يوسف - كفر الشيخ</span><span>1,250</span></div><div class="bg-black/10 rounded-full p-2 flex justify-between text-xs font-bold"><span>⭐ انتي يا أمنية</span><span>معلمة</span></div></div></div>
+</div>
+
+<!-- MODAL -->
+<div id="modal" class="fixed inset-0 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4 z-[99]">
+<div class="bg-white rounded-[24px] max-w-xl w-full overflow-hidden shadow-2xl scale-95 transition-all" id="modalBox">
+<div class="aspect-video bg-black"><iframe id="yt" class="w-full h-full" src="" allowfullscreen></iframe></div>
+<div class="p-5"><h3 id="mT" class="font-black text-lg"></h3><p id="mD" class="text-sm text-gray-500 mt-2"></p><button onclick="closeM()" class="w-full mt-4 bg-black text-white py-3 rounded-xl font-bold hover:bg-[#6C5CE7] transition">قفل + خد 100 نقطة ✨</button></div>
+</div>
+</div>
+
+<div class="text-center py-16 text-[11px] text-gray-400">صمم باحترافية لملوك مصر - React Style Animations - DrasatAi PRO 👑</div>
+
+<script>
+const lessons=[
+{title:"الوجه البحري",emoji:"🌊",grad:"from-[#E0E7FF] to-[#F3E8FF]",desc:"13 محافظة على البحر المتوسط",yt:"https://www.youtube.com/embed/3SsK-cxlj_w",badge:"TOP"},
+{title:"الوجه القبلي",emoji:"🏜️",grad:"from-[#FFF0F0] to-[#FFF7ED]",desc:"الأهرامات وتلت آثار العالم",yt:"https://www.youtube.com/embed/9p5y1q2L6y0",badge:"HOT"},
+{title:"الحدودية العمالقة",emoji:"🏔️",grad:"from-[#ECFDF5] to-[#F0FDF4]",desc:"الوادي الجديد أكبر محافظة",yt:"https://www.youtube.com/embed/2Vv-BfVoq4g",badge:"NEW"},
+];
+const grid=document.getElementById('grid');
+lessons.forEach((l,i)=>{
+grid.innerHTML+=`<div onclick="openV(${i})" class="reveal group bg-gradient-to-br ${l.grad} border border-white rounded-[24px] p-4 shadow-sm card-hover cursor-pointer relative overflow-hidden" style="transition-delay:${i*0.1}s">
+<span class="absolute top-3 left-3 bg-black text-white text-[9px] px-2 py-1 rounded-full font-black">${l.badge}</span>
+<div class="h-32 flex items-center justify-center text-5xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">${l.emoji}</div>
+<b class="block mt-2">${l.title}</b><p class="text-[11px] text-gray-500">${l.desc}</p>
+<div class="mt-3 flex gap-2"><span class="bg-black text-white px-3 py-1 rounded-full text-[10px]">▶️ فيديو PRO</span><span class="bg-white border px-3 py-1 rounded-full text-[10px]">+100 XP</span></div>
+<div class="absolute inset-0 bg-white/0 group-hover:bg-white/20 transition"></div>
+</div>`;
+});
+function openV(i){document.getElementById('mT').innerText=lessons[i].title;document.getElementById('mD').innerText=lessons[i].desc;document.getElementById('yt').src=lessons[i].yt+"?autoplay=1";document.getElementById('modal').classList.remove('hidden');document.getElementById('modal').classList.add('flex');setTimeout(()=>document.getElementById('modalBox').classList.remove('scale-95'),10);}
+function closeM(){document.getElementById('modal').classList.add('hidden');document.getElementById('yt').src='';}
+const obs=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('active')})},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 </script>
 </body>
 </html>
