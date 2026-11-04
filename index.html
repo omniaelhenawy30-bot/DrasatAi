@@ -3,71 +3,172 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ملوك مصر</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@900&display=swap" rel="stylesheet">
+<title>DrasatAi - دروس بتتحرك</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;800;900&display=swap" rel="stylesheet">
 <style>
-*{font-family:'Cairo';box-sizing:border-box;margin:0}body{background:#FFF8E1;text-align:center}
-.king{width:150px;margin:10px auto;background:#fff;border-radius:50%;border:5px solid #FFD600;padding:10px;box-shadow:0 6px 0 #0002}
-.mouth{width:40px;height:12px;background:#5D4037;border-radius:0 0 15px 15px;margin:5px auto}
-.mouth.go{animation:talk .12s infinite alternate}
-@keyframes talk{0%{height:8px}100%{height:28px}}
-.bubble{background:#fff;margin:12px;border-radius:18px;padding:14px;box-shadow:0 4px 0 #FFD600;font-size:16px;line-height:1.8}
-.btn{padding:12px 25px;background:#6C5CE7;color:#fff;border:none;border-radius:25px;font-weight:900;margin:6px;box-shadow:0 5px 0 #4834D4}
-.map{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:12px;max-width:380px;margin:10px auto}
-.place{background:#fff;border-radius:15px;padding:12px;box-shadow:0 3px 0 #0002;border:3px solid transparent;cursor:pointer;font-weight:700}
-.place.active{border-color:#FFD600;background:#FFF9C4;transform:scale(1.05)}
+*{font-family:'Cairo';box-sizing:border-box;margin:0;padding:0}
+body{background:#0F0F1A;color:#fff}
+.header{background:linear-gradient(90deg,#6C5CE7,#A29BFE);padding:12px 15px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:99}
+.logo{font-weight:900;font-size:18px}
+.streak{background:#fff;color:#6C5CE7;padding:4px 12px;border-radius:20px;font-weight:900;font-size:13px}
+.hero{background:linear-gradient(180deg,#6C5CE7 0%, #0F0F1A 100%);padding:20px;text-align:center}
+.player{width:100%;max-width:420px;margin:15px auto;background:#1E1E2F;border-radius:25px;overflow:hidden;border:2px solid #2D2D44;position:relative}
+.stage{height:360px;background:linear-gradient(180deg,#87CEEB,#FFF8E1);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;transition:1s}
+.character{position:absolute;transition:1s;filter:drop-shadow(0 10px 10px #0003)}
+.char1{width:120px;bottom:20px;right:20px}
+.char2{width:100px;bottom:20px;left:20px}
+.bubble-talk{position:absolute;top:20px;left:50%;transform:translateX(-50%);background:#fff;color:#000;padding:12px 16px;border-radius:18px;max-width:85%;font-size:15px;line-height:1.6;box-shadow:0 6px 0 #0002;display:none}
+.bubble-talk.show{display:block;animation:pop .4s}
+@keyframes pop{0%{transform:translateX(-50%) scale(0)}100%{transform:translateX(-50%) scale(1)}}
+.map-anim{width:90%;height:200px;background:#C8E6C9;border-radius:15px;position:relative;overflow:hidden;display:none}
+.map-anim.show{display:block}
+.gov-dot{position:absolute;width:12px;height:12px;background:#FF4B4B;border-radius:50%;animation:blink 1s infinite}
+@keyframes blink{0%,100%{transform:scale(1)}50%{transform:scale(1.8)}}
+.controls{background:#2D2D44;padding:12px;display:flex;align-items:center;gap:10px}
+.progress{flex:1;height:8px;background:#1E1E2F;border-radius:10px;overflow:hidden}
+.progress-bar{height:100%;background:linear-gradient(90deg,#FFD600,#6C5CE7);width:0%;transition:.5s}
+.time{font-size:12px;color:#aaa}
+.btn-play{width:44px;height:44px;border-radius:50%;background:#6C5CE7;border:none;color:#fff;font-size:20px;cursor:pointer}
+.chapters{padding:12px;display:flex;gap:8px;overflow-x:auto}
+.chap{padding:8px 14px;background:#1E1E2F;border-radius:20px;font-size:12px;white-space:nowrap;border:2px solid transparent;cursor:pointer}
+.chap.active{border-color:#FFD600;background:#2D2D44}
+.chap.done{background:#4CAF50;color:#fff}
+.quiz-card{background:#1E1E2F;margin:12px;border-radius:20px;padding:15px;border:2px solid #2D2D44;display:none}
+.quiz-card.show{display:block}
+.q-btn{width:100%;padding:12px;margin:6px 0;background:#2D2D44;border:none;border-radius:12px;color:#fff;font-weight:700;cursor:pointer;text-align:right}
+.q-btn.correct{background:#4CAF50!important}
+.q-btn.wrong{background:#FF4B4B!important}
+.leaderboard{background:#1E1E2F;margin:12px;border-radius:20px;padding:15px}
+.leader-row{display:flex;justify-content:space-between;padding:8px;border-bottom:1px solid #2D2D44;font-size:13px}
+.leader-row.me{background:#6C5CE7;border-radius:10px}
 </style>
 </head>
 <body>
-<img src="https://cdn-icons-png.flaticon.com/512/4205/4205907.png" class="king" id="kingImg">
-<h2 id="name">👑 الملك خوفو</h2>
-<p id="city" style="color:#888">كفر الشيخ - الوجه البحري</p>
-<div class="mouth" id="mouth"></div>
-<div class="bubble" id="bubble">أهلا يا بطل! دوس على الزرار واسمعني! أنا هشرحلك محافظات مصر كلها بصوتي!</div>
-<button class="btn" onclick="speak()">🔊 اسمع الملك</button>
 
-<div class="map">
-<div class="place" onclick="pick('كفر الشيخ',this)">⭐ كفر الشيخ</div>
-<div class="place" onclick="pick('الإسكندرية',this)">👸 إسكندرية</div>
-<div class="place" onclick="pick('القاهرة',this)">🏛️ القاهرة</div>
-<div class="place" onclick="pick('دمياط',this)">🐟 دمياط</div>
-<div class="place" onclick="pick('الجيزة',this)">🔺 الجيزة</div>
-<div class="place" onclick="pick('الأقصر',this)">🏺 الأقصر</div>
-<div class="place" onclick="pick('أسوان',this)">🌊 أسوان</div>
-<div class="place" onclick="pick('الوادي الجديد',this)">🌴 الوادي الجديد</div>
-<div class="place" onclick="pick('سيناء',this)">⛰️ سيناء</div>
+<div class="header">
+<div class="logo">DrasatAi 📚</div>
+<div class="streak">🔥 7 أيام | 👑 1250 نقطة</div>
+</div>
+
+<div class="hero">
+<h2 style="font-weight:900">دراسات اجتماعية - سنة رابعة</h2>
+<p style="font-size:13px;color:#DCD6FF;margin-top:4px">الدرس الأول: خريطة مصر - 27 محافظة | 25 دقيقة كرتون</p>
+</div>
+
+<div class="player">
+<div class="stage" id="stage">
+<img src="https://cdn-icons-png.flaticon.com/512/4205/4205907.png" class="character char1" id="char1">
+<img src="https://cdn-icons-png.flaticon.com/512/4206/4206026.png" class="character char2" id="char2" style="display:none">
+<div class="bubble-talk" id="bubble"></div>
+<div class="map-anim" id="mapAnim">
+<div class="gov-dot" style="top:20%;left:30%"></div>
+<div class="gov-dot" style="top:25%;left:50%;background:#4CAF50"></div>
+<div class="gov-dot" style="top:60%;left:55%;background:#FFD600"></div>
+</div>
+</div>
+<div class="controls">
+<button class="btn-play" id="playBtn" onclick="togglePlay()">▶️</button>
+<div class="progress"><div class="progress-bar" id="bar"></div></div>
+<div class="time" id="time">00:00 / 25:00</div>
+</div>
+<div class="chapters" id="chapters">
+<div class="chap active" onclick="goTo(0)">1. البداية</div>
+<div class="chap" onclick="goTo(1)">2. الوجه البحري</div>
+<div class="chap" onclick="goTo(2)">3. الوجه القبلي</div>
+<div class="chap" onclick="goTo(3)">4. الحدود</div>
+<div class="chap" onclick="goTo(4)">5. الاختبار</div>
+</div>
+</div>
+
+<div class="quiz-card" id="quiz1">
+<h4>🤔 سؤال سريع:</h4>
+<p style="margin:8px 0">مصر فيها كام محافظة؟</p>
+<button class="q-btn" onclick="checkQ(this,false)">25 محافظة</button>
+<button class="q-btn" onclick="checkQ(this,true)">27 محافظة 👑</button>
+<button class="q-btn" onclick="checkQ(this,false)">30 محافظة</button>
+</div>
+
+<div class="quiz-card" id="quizFinal">
+<h3>🏆 الاختبار النهائي</h3>
+<p style="margin:10px 0;font-size:14px">جاوب عشان تدخل لوحة الشرف!</p>
+<p>1. أصغر محافظة في مصر؟</p>
+<button class="q-btn" onclick="checkFinal(this,true)">دمياط</button>
+<button class="q-btn" onclick="checkFinal(this,false)">القاهرة</button>
+<p style="margin-top:12px">2. أكبر محافظة في مصر؟</p>
+<button class="q-btn" onclick="checkFinal(this,true)">الوادي الجديد</button>
+<button class="q-btn" onclick="checkFinal(this,false)">الجيزة</button>
+</div>
+
+<div class="leaderboard">
+<h4>🏆 لوحة شرف مصر - اليوم</h4>
+<div class="leader-row"><span>🥇 يوسف من كفر الشيخ</span><span>3200 نقطة</span></div>
+<div class="leader-row"><span>🥈 مريم من الإسكندرية</span><span>2980 نقطة</span></div>
+<div class="leader-row"><span>🥉 أحمد من الأقصر</span><span>2750 نقطة</span></div>
+<div class="leader-row me"><span>⭐ أنتِ - المركز 4</span><span id="myScore">1250 نقطة</span></div>
+<p style="font-size:11px;color:#888;margin-top:10px;text-align:center">تتحدث كل ساعة - المسابقة القومية بين كل طلاب مصر 🔥</p>
 </div>
 
 <script>
-let curPlace='كفر الشيخ';
-const texts={
-'كفر الشيخ':'يا هلا بأهل كفر الشيخ! انا الملك خوفو باني الهرم الاكبر. كفر الشيخ محافظة جميلة على البحر المتوسط مشهورة بالرز والسمك وبحيرة البرلس. وهي من محافظات الوجه البحري اللي عددهم تلاتاشر محافظة!',
-'الإسكندرية':'انا كليوباترا ملكة اسكندرية عروس البحر المتوسط! اسكندرية فيها المينا الكبير ومكتبة اسكندرية وجوها تحفة!',
-'القاهرة':'القاهرة عاصمة مصر واكبر محافظة فيها تلاتاشر مليون واحد! فيها القلعة والازهر!',
-'دمياط':'دمياط اصغر محافظة في مصر كلها! مشهورة بالاثاث والسمك!',
-'الجيزة':'الجيزة فيها الاهرامات التلاتة وابو الهول! انا اللي بنيت الهرم الاكبر!',
-'الأقصر':'الاقصر فيها تلت اثار العالم كله! معبد الكرنك ووادي الملوك!',
-'أسوان':'اسوان فيها السد العالي ومعبد ابو سمبل وجزيرة فيلة! جوها جميل في الشتا!',
-'الوادي الجديد':'الوادي الجديد اكبر محافظة في مصر كلها! مساحتها كبيرة قوي بس صحراء وفيها واحات!',
-'سيناء':'سيناء فيها شرم الشيخ ودهب وجبل سانت كاترين! احلى مكان للسياحة!'
-};
-function pick(p,el){
-curPlace=p;
-document.querySelectorAll('.place').forEach(x=>x.classList.remove('active'));
-el.classList.add('active');
-document.getElementById('city').innerText=p;
-document.getElementById('bubble').innerText=texts[p];
-speak();
+let playing=false,progress=0,currentChap=0,myScore=1250;
+const lessons=[
+{time:0,text:"أهلا يا أبطال سنة رابعة! أنا نور وده صاحبي سيف، هناخدكم في رحلة كرتون لمدة 25 دقيقة نلف فيها مصر كلها ونتعرف على 27 محافظة! جاهزين؟",char1:true,char2:false,map:false},
+{time:5,text:"أول حاجة الوجه البحري في شمال مصر! 13 محافظة! شايفين النقط الحمرا دي؟ هنا كفر الشيخ بتاعتنا الجميلة على البحر ومشهورة بالرز والسمك، ودمياط أصغر محافظة في مصر كلها بتعمل أحلى أثاث!",char1:false,char2:true,map:true},
+{time:12,text:"ننزل بقى على الوجه القبلي! 9 محافظات من الجيزة لأسوان! هنا الجيزة فيها الأهرامات وأبو الهول، والأقصر فيها تلت آثار العالم كله، وأسوان فيها السد العالي!",char1:true,char2:true,map:true},
+{time:18,text:"آخر حاجة المحافظات الحدودية! 5 محافظات كبار قوي! الوادي الجديد أكبر محافظة في مصر كلها! ومطروح والبحر الأحمر وسيناء وشرم الشيخ وجبل سانت كاترين!",char1:false,char2:false,map:true},
+{time:23,text:"برافو! خلصنا الرحلة! دلوقتي وقت الاختبار عشان تدخل لوحة شرف مصر وتاخد التاج! يلا بينا!",char1:true,char2:true,map:false}
+];
+
+function togglePlay(){
+playing=!playing;
+document.getElementById('playBtn').innerText=playing?'⏸️':'▶️';
+if(playing) startLesson();
+else stopLesson();
 }
-function speak(){
-let t=texts[curPlace];
-document.getElementById('bubble').innerText=t;
-let m=document.getElementById('mouth');
-m.classList.add('go');
-let u=new SpeechSynthesisUtterance(t);
-u.lang='ar-EG';u.rate=0.85;
-u.onend=()=>m.classList.remove('go');
-speechSynthesis.speak(u);
+let interval;
+function startLesson(){
+interval=setInterval(()=>{
+progress+=0.2;
+if(progress>100) progress=100;
+document.getElementById('bar').style.width=progress+'%';
+let mins=Math.floor(progress*25/100);
+document.getElementById('time').innerText=`${mins.toString().padStart(2,'0')}:00 / 25:00`;
+let chap=Math.floor(progress/20);
+if(chap!==currentChap) goTo(chap);
+if(progress>=100){playing=false;document.getElementById('playBtn').innerText='🔁';showFinal();}
+},200);
+speakCurrent();
+}
+function stopLesson(){clearInterval(interval);window.speechSynthesis.cancel();}
+function goTo(i){
+currentChap=i;
+document.querySelectorAll('.chap').forEach((c,idx)=>{c.classList.toggle('active',idx===i);if(idx<i) c.classList.add('done');});
+let l=lessons[i];
+let bubble=document.getElementById('bubble');
+bubble.innerText=l.text; bubble.classList.add('show');
+document.getElementById('char1').style.display=l.char1||i===2||i===4?'block':'none';
+document.getElementById('char2').style.display=l.char2||i===2||i===4?'block':'none';
+document.getElementById('mapAnim').classList.toggle('show',l.map);
+document.getElementById('stage').style.background=l.map?'#C8E6C9':'linear-gradient(180deg,#87CEEB,#FFF8E1)';
+if(i===1) document.getElementById('quiz1').classList.add('show');
+if(playing) speakCurrent();
+}
+function speakCurrent(){
+window.speechSynthesis.cancel();
+let u=new SpeechSynthesisUtterance(lessons[currentChap].text);
+u.lang='ar-EG';u.rate=0.88;
+window.speechSynthesis.speak(u);
+}
+function checkQ(el,ok){
+if(ok){el.classList.add('correct');myScore+=50;new Audio('https://cdn.pixabay.com/download/audio/2021/08/04/audio_0625c1539c.mp3').play().catch(()=>{});}
+else{el.classList.add('wrong');new Audio('https://cdn.pixabay.com/download/audio/2022/03/24/audio_2b5c24f8d7.mp3').play().catch(()=>{});}
+document.getElementById('myScore').innerText=myScore+' نقطة';
+setTimeout(()=>document.getElementById('quiz1').classList.remove('show'),1000);
+}
+function showFinal(){document.getElementById('quizFinal').classList.add('show');window.scrollTo(0,document.body.scrollHeight);}
+function checkFinal(el,ok){
+if(ok){el.classList.add('correct');myScore+=100;}
+else el.classList.add('wrong');
+document.getElementById('myScore').innerText=myScore+' نقطة';
 }
 </script>
 </body>
