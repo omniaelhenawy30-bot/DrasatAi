@@ -3,167 +3,160 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DrasatAi - دروس بتتحرك</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;800;900&display=swap" rel="stylesheet">
+<title>DrasatAi - ميس مصرية بتشرح</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
 <style>
 *{font-family:'Cairo';box-sizing:border-box;margin:0;padding:0}
-body{background:#F8F7FF;color:#222}
-.header{background:#fff;padding:12px 15px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:99;box-shadow:0 2px 10px #0001}
-.logo{font-weight:900;font-size:20px;color:#6C5CE7}
-.streak{background:#6C5CE7;color:#fff;padding:6px 14px;border-radius:20px;font-weight:900;font-size:13px}
-.container{max-width:480px;margin:0 auto;padding:0 12px 100px}
-.hero{background:linear-gradient(135deg,#6C5CE7,#A29BFE);border-radius:25px;padding:20px;color:#fff;margin:12px 0;text-align:center}
-.hero h1{font-size:22px;font-weight:900}
-.hero p{font-size:13px;margin-top:6px;opacity:.9}
-.subjects{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:15px 0}
-.sub-card{background:#fff;border-radius:18px;padding:14px;text-align:center;box-shadow:0 4px 0 #E9E8FF;cursor:pointer;border:2px solid transparent}
-.sub-card.active{border-color:#FFD600;background:#FFFBE6;transform:translateY(-3px)}
-.sub-card b{display:block;margin-top:6px}
-.player{width:100%;background:#1E1E2F;border-radius:25px;overflow:hidden;border:2px solid #2D2D44;margin:15px 0}
-.stage{height:340px;background:linear-gradient(180deg,#87CEEB,#FFF8E1);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.character{position:absolute;transition:.6s;filter:drop-shadow(0 8px 8px #0003)}
-.char1{width:110px;bottom:15px;right:15px}
-.char2{width:95px;bottom:15px;left:15px}
-.bubble-talk{position:absolute;top:15px;left:50%;transform:translateX(-50%);background:#fff;color:#000;padding:12px 14px;border-radius:18px;width:88%;font-size:14px;line-height:1.7;box-shadow:0 6px 0 #0002;text-align:right}
-.map-box{width:92%;height:200px;background:#C8E6C9;border-radius:15px;position:relative;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px;padding:10px}
-.gov{display:inline-block;background:#fff;padding:5px 10px;border-radius:12px;font-size:11px;font-weight:800;box-shadow:0 2px 0 #0001}
-.gov.active{background:#FFD600;transform:scale(1.1)}
-.controls{background:#2D2D44;padding:12px;display:flex;align-items:center;gap:10px}
-.progress{flex:1;height:10px;background:#1E1E2F;border-radius:10px;overflow:hidden}
-.bar{height:100%;background:linear-gradient(90deg,#FFD600,#6C5CE7);width:0%;transition:.5s}
-.btn-play{width:46px;height:46px;border-radius:50%;background:#6C5CE7;border:none;color:#fff;font-size:20px;cursor:pointer}
-.chapters{display:flex;gap:8px;overflow-x:auto;padding:10px 0}
-.chap{padding:8px 14px;background:#fff;border-radius:20px;font-size:12px;white-space:nowrap;border:2px solid #E9E8FF;cursor:pointer;box-shadow:0 2px 0 #E9E8FF}
-.chap.active{border-color:#6C5CE7;background:#6C5CE7;color:#fff}
-.chap.done{background:#4CAF50;color:#fff;border-color:#4CAF50}
-.quiz{background:#fff;margin:12px 0;border-radius:20px;padding:16px;box-shadow:0 4px 0 #E9E8FF;border:2px solid #6C5CE722}
-.q-btn{width:100%;padding:12px;margin:6px 0;background:#F8F7FF;border:2px solid #E9E8FF;border-radius:12px;color:#222;font-weight:700;cursor:pointer;text-align:right}
-.q-btn.correct{background:#4CAF50!important;color:#fff!important}
-.q-btn.wrong{background:#FF4B4B!important;color:#fff!important}
-.leaderboard{background:#fff;margin:12px 0;border-radius:20px;padding:16px;box-shadow:0 4px 0 #E9E8FF}
-.row{display:flex;justify-content:space-between;padding:9px;border-bottom:1px solid #f0f0f0;font-size:13px}
-.row.me{background:#6C5CE7;color:#fff;border-radius:10px;font-weight:800}
+body{background:#FFF8E1;color:#222}
+.header{background:#6C5CE7;color:#fff;padding:14px;text-align:center;position:sticky;top:0;z-index:99}
+.container{max-width:500px;margin:auto;padding:10px 10px 80px}
+.film{width:100%;background:#1A1A2E;border-radius:25px;overflow:hidden;margin:12px 0;border:4px solid #2D2D44;box-shadow:0 10px 30px #0003}
+.screen{height:420px;position:relative;background:#000;overflow:hidden}
+.bg-class{width:100%;height:100%;object-fit:cover}
+.teacher{position:absolute;bottom:0;right:10px;width:160px;z-index:3;filter:drop-shadow(0 -5px 15px #0005);animation:teacherTalk .6s infinite alternate}
+@keyframes teacherTalk{0%{transform:translateY(0) scale(1)}100%{transform:translateY(-3px) scale(1.02)}}
+.blackboard{position:absolute;top:8%;left:5%;width:90%;height:52%;background:#2C3E50;border:6px solid #8B4513;border-radius:8px;z-index:2;display:flex;flex-direction:column;padding:10px;color:#fff}
+.chalk-text{font-size:18px;font-weight:900;color:#FFEB3B;text-shadow:0 0 5px #FFEB3B88;line-height:1.6}
+.chalk-white{color:#fff;font-size:15px;margin-top:6px}
+.map-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.tag{background:#FFD600;color:#000;padding:3px 8px;border-radius:10px;font-size:11px;font-weight:900}
+.bubble{position:absolute;bottom:12px;left:5%;width:90%;background:#fff;color:#000;padding:12px;border-radius:18px 18px 18px 0;font-size:14px;line-height:1.8;z-index:5;box-shadow:0 4px 0 #0003;min-height:70px}
+.bubble::after{content:'ميس نور بتتكلم...';position:absolute;top:-18px;right:10px;background:#6C5CE7;color:#fff;font-size:10px;padding:2px 8px;border-radius:10px}
+.controls{background:#2D2D44;padding:12px;display:flex;align-items:center;gap:10px;color:#fff}
+.btn{width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#6C5CE7,#A29BFE);border:3px solid #fff;color:#fff;font-size:24px;cursor:pointer}
+.progress{flex:1;height:14px;background:#1A1A2E;border-radius:10px;overflow:hidden;border:2px solid #444}
+.fill{height:100%;width:0%;background:linear-gradient(90deg,#FFD600,#6C5CE7);transition:.4s}
+.chapters{display:flex;gap:7px;overflow-x:auto;padding:10px;background:#1A1A2E}
+.ch{padding:8px 14px;background:#2D2D44;color:#aaa;border-radius:20px;font-size:12px;white-space:nowrap;cursor:pointer;border:2px solid transparent}
+.ch.active{background:#FFD600;color:#000;font-weight:900;transform:scale(1.05)}
+.ch.done{background:#4CAF50;color:#fff}
+.quiz{background:#fff;border-radius:20px;padding:16px;margin:12px 0;box-shadow:0 4px 0 #E9E8FF}
+.qbtn{width:100%;padding:12px;margin:6px 0;background:#F8F7FF;border:2px solid #E9E8FF;border-radius:12px;font-weight:800;text-align:right;cursor:pointer}
+.qbtn.ok{background:#4CAF50!important;color:#fff!important}
+.qbtn.no{background:#FF4B4B!important;color:#fff!important}
+.leader{background:#fff;border-radius:20px;padding:14px;margin:10px 0;box-shadow:0 4px 0 #E9E8FF}
+.row{display:flex;justify-content:space-between;padding:8px;font-size:13px;border-bottom:1px solid #f0f0f0}
+.row.me{background:#6C5CE7;color:#fff;border-radius:10px;font-weight:900}
+.note{background:#FFF3CD;border:2px dashed #FFD600;border-radius:15px;padding:12px;margin:10px 0;font-size:12px;text-align:center}
 </style>
 </head>
 <body>
 <div class="header">
-<div class="logo">DrasatAi 📚</div>
-<div class="streak">🔥 7 أيام | 👑 <span id="scoreTop">1250</span></div>
+<b>🎬 DrasatAi - أهلا بملوك مصر! 👑</b>
+<p style="font-size:11px;opacity:.9">ميس مصرية بتشرح على السبورة - 25 دقيقة</p>
 </div>
-
 <div class="container">
-<div class="hero">
-<h1>أهلا يا بطلة كفر الشيخ! 👋</h1>
-<p>اتعلمي بكرتون بيتحرك - 25 دقيقة وهتبقي حافظة الدرس</p>
-</div>
 
-<div class="subjects">
-<div class="sub-card active" onclick="selectSub(this)"><div style="font-size:30px">🗺️</div><b>دراسات</b><span style="font-size:11px;color:#888">خريطة مصر - 27 محافظة</span></div>
-<div class="sub-card" onclick="selectSub(this)"><div style="font-size:30px">🔬</div><b>علوم</b><span style="font-size:11px;color:#888">قريباً</span></div>
-<div class="sub-card" onclick="selectSub(this)"><div style="font-size:30px">📖</div><b>عربي</b><span style="font-size:11px;color:#888">قريباً</span></div>
-<div class="sub-card" onclick="selectSub(this)"><div style="font-size:30px">🔢</div><b>رياضة</b><span style="font-size:11px;color:#888">قريباً</span></div>
+<div class="film">
+<div class="screen" id="screen">
+<img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600" class="bg-class" style="opacity:.3">
+<div class="blackboard" id="board">
+<div class="chalk-text" id="boardTitle">درس اليوم: محافظات مصر</div>
+<div class="chalk-white" id="boardText">27 محافظة</div>
+<div class="map-tags" id="boardTags"></div>
 </div>
-
-<div class="player">
-<div class="stage" id="stage">
-<img src="https://cdn-icons-png.flaticon.com/512/4205/4205907.png" class="character char1" id="c1">
-<img src="https://cdn-icons-png.flaticon.com/512/4206/4206026.png" class="character char2" id="c2">
-<div class="bubble-talk" id="bubble">أهلا يا بطلة! دوسي ▶️ تحت وهنبدأ رحلة كرتون 25 دقيقة نلف فيها مصر كلها! أنا نور وده سيف!</div>
-<div class="map-box" id="mapBox" style="display:none"></div>
+<img src="https://cdn-icons-png.flaticon.com/512/4205/4205907.png" class="teacher" id="teacher" style="display:block">
+<div class="bubble" id="bubble">إزيكوا يا ملوك مصر يا حبايب قلبي! أنا ميس نور! النهاردة هاخدكوا في فيلم كرتون 25 دقيقة هنلف فيه مصر كلها من اسكندرية لأسوان! دوسوا بلاي يلا! 🎬👑</div>
 </div>
 <div class="controls">
-<button class="btn-play" id="playBtn" onclick="togglePlay()">▶️</button>
-<div class="progress"><div class="bar" id="bar"></div></div>
-<div style="font-size:11px;color:#aaa" id="time">00:00 / 25:00</div>
+<button class="btn" id="playBtn" onclick="toggle()">▶️</button>
+<div class="progress"><div class="fill" id="fill"></div></div>
+<div id="time" style="font-size:11px;min-width:75px">00:00 / 25:00</div>
 </div>
-<div class="chapters">
-<div class="chap active" onclick="goTo(0)">1. البداية</div>
-<div class="chap" onclick="goTo(1)">2. الوجه البحري</div>
-<div class="chap" onclick="goTo(2)">3. الوجه القبلي</div>
-<div class="chap" onclick="goTo(3)">4. الحدود</div>
-<div class="chap" onclick="goTo(4)">5. الاختبار 🏆</div>
-</div>
+<div class="chapters" id="chapters"></div>
 </div>
 
-<div class="quiz" id="quizMid" style="display:none">
-<h4>🤔 سؤال سريع - جاوبي عشان تاخدي 50 نقطة!</h4>
-<p style="margin:8px 0">مصر فيها كام محافظة؟</p>
-<button class="q-btn" onclick="check(this,false)">25 محافظة</button>
-<button class="q-btn" onclick="check(this,true)">27 محافظة 👑</button>
-<button class="q-btn" onclick="check(this,false)">30 محافظة</button>
+<div class="quiz" id="q1" style="display:none">
+<h4>🤔 يلا يا ملوك مصر - سؤال في النص!</h4>
+<p>مصر فيها كام محافظة يا ملوك؟</p>
+<button class="qbtn" onclick="check(this,false)">25</button>
+<button class="qbtn" onclick="check(this,true)">27 محافظة - برافو! 👑</button>
+<button class="qbtn" onclick="check(this,false)">30</button>
 </div>
 
-<div class="quiz" id="quizFinal" style="display:none">
-<h3>🏆 الاختبار النهائي - ادخلي لوحة الشرف!</h3>
-<p style="margin:10px 0">1. أصغر محافظة في مصر؟</p>
-<button class="q-btn" onclick="checkFinal(this,true)">دمياط</button>
-<button class="q-btn" onclick="checkFinal(this,false)">القاهرة</button>
-<p style="margin-top:12px">2. أكبر محافظة؟</p>
-<button class="q-btn" onclick="checkFinal(this,true)">الوادي الجديد</button>
-<button class="q-btn" onclick="checkFinal(this,false)">الجيزة</button>
+<div class="quiz" id="qFinal" style="display:none">
+<h3>🏆 الامتحان النهائي - يا ملوك مصر!</h3>
+<p>1. أصغر محافظة؟</p>
+<button class="qbtn" onclick="checkF(this,true)">دمياط</button>
+<button class="qbtn" onclick="checkF(this,false)">القاهرة</button>
+<p style="margin-top:8px">2. أكبر محافظة؟</p>
+<button class="qbtn" onclick="checkF(this,true)">الوادي الجديد</button>
+<button class="qbtn" onclick="checkF(this,false)">الجيزة</button>
 </div>
 
-<div class="leaderboard">
-<h4>🏆 لوحة شرف مصر - بتتحدث كل ساعة</h4>
-<div class="row"><span>🥇 يوسف - كفر الشيخ</span><span>3200 نقطة</span></div>
-<div class="row"><span>🥈 مريم - الإسكندرية</span><span>2980 نقطة</span></div>
-<div class="row"><span>🥉 أحمد - الأقصر</span><span>2750 نقطة</span></div>
-<div class="row me"><span>⭐ أنتِ - المركز 4</span><span id="myScore">1250 نقطة</span></div>
-<p style="font-size:11px;color:#888;margin-top:10px;text-align:center">كل ما تخلصي درس بتطلعي فوق - زي Duolingo بالظبط 🔥</p>
+<div class="leader">
+<h4>🏆 لوحة شرف ملوك مصر - مسابقة قومية</h4>
+<div class="row"><span>🥇 يوسف - القاهرة</span><span>3200 🔥</span></div>
+<div class="row"><span>🥈 مريم - اسكندرية</span><span>2980</span></div>
+<div class="row"><span>🥉 أحمد - الأقصر</span><span>2750</span></div>
+<div class="row me"><span>⭐ انتِ - ملكة مصر</span><span id="myScore">1250 نقطة</span></div>
 </div>
+
 </div>
 
 <script>
-let playing=false,progress=0,current=0,score=1250;
-const lessons=[
-{text:"أهلا يا أبطال سنة رابعة! أنا نور وده صاحبي سيف، هناخدكم في رحلة كرتون 25 دقيقة نلف فيها مصر كلها ونتعرف على 27 محافظة! جاهزين؟ دوسوا بلاي!",map:false,chars:[true,true],goves:[]},
-{text:"الوجه البحري في شمال مصر! 13 محافظة! كفر الشيخ بتاعتنا الجميلة على البحر المتوسط مشهورة بالرز والسمك وبحيرة البرلس، ودمياط أصغر محافظة في مصر بتعمل أحلى أثاث، والإسكندرية عروس البحر!",map:true,chars:[false,true],goves:["كفر الشيخ","دمياط","الإسكندرية","الدقهلية","البحيرة","الغربية"]},
-{text:"ننزل بقى على الوجه القبلي! 9 محافظات من الجيزة لأسوان! الجيزة فيها الأهرامات وأبو الهول، والأقصر فيها تلت آثار العالم كله معبد الكرنك، وأسوان فيها السد العالي وجزيرة فيلة!",map:true,chars:[true,false],goves:["الجيزة","الفيوم","بني سويف","المنيا","أسيوط","الأقصر","أسوان"]},
-{text:"آخر حاجة المحافظات الحدودية! 5 محافظات كبار قوي! الوادي الجديد أكبر محافظة في مصر كلها مساحتها صحراء وفيها واحات، ومطروح والبحر الأحمر وسيناء فيها شرم الشيخ وجبل سانت كاترين!",map:true,chars:[true,true],goves:["الوادي الجديد","مطروح","البحر الأحمر","شمال سيناء","جنوب سيناء"]},
-{text:"برافو خلصنا الرحلة! دلوقتي وقت الاختبار عشان تدخلي لوحة شرف مصر وتاخدي التاج! يلا بينا!",map:false,chars:[true,true],goves:[]}
+const films=[
+{title:"أهلا بملوك مصر! 👑",text:"إزيكوا يا ملوك مصر يا حبايب قلبي! أنا ميس نور! النهاردة هنعمل فيلم كرتون جامد جدا 25 دقيقة هنلف فيه مصر كلها من اسكندرية لأسوان! جاهزين يا ملوك؟",tags:["مصر","27 محافظة","ملوك مصر"],board:"أهلا بملوك مصر! 👑"},
+{title:"الوجه البحري - وشنا الحلو! 🌊",text:"بصوا يا ملوك على السبورة! الوجه البحري ده فوق في شمال مصر! 13 محافظة! عندنا كفر الشيخ بلدنا الجميلة بتطل على البحر المتوسط وفيها بركة غليون وبتعمل أحلى رز وسمك! ودمياط يا ولاد أصغر محافظة في مصر كلها قد كده بتعمل أحلى عفش وأثاث!",tags:["كفر الشيخ","دمياط","اسكندرية","الدقهلية","البحيرة","الغربية"],board:"الوجه البحري = 13 محافظة"},
+{title:"الوجه القبلي - أصل الحضارة! 🏜️",text:"ننزل بقى تحت يا ملوك على الوجه القبلي! 9 محافظات من الجيزة لحد أسوان! الجيزة فيها الأهرامات وأبو الهول اللي العالم كله بيجي يتفرج عليه! والأقصر يا ولاد فيها تلت آثار العالم! معبد الكرنك وادي الملوك! وأسوان فيها السد العالي!",tags:["الجيزة - الأهرامات","الأقصر - تلت الآثار","أسوان - السد العالي","المنيا","أسيوط"],board:"الوجه القبلي = 9 محافظات"},
+{title:"المحافظات الحدودية - الكبار قوي! 🏔️",text:"آخر حاجة يا ملوك مصر المحافظات الحدودية! 5 محافظات بس كل واحدة قد الدنيا! الوادي الجديد أكبر محافظة في مصر كلها! كلها صحرا وفيها واحات الفرافرة والداخلة! ومطروح والبحر الأحمر وسيناء فيها شرم الشيخ وجبل سانت كاترين!",tags:["الوادي الجديد - أكبر محافظة","مطروح","البحر الأحمر","سيناء"],board:"الحدودية = 5 محافظات"},
+{title:"برافو يا ملوك مصر! 👑",text:"شطار شطار يا ملوك مصر! خلصنا فيلم النهاردة! عرفتوا الـ 27 محافظة كلهم! دلوقتي يلا بينا على الامتحان عشان تدخلوا لوحة شرف ملوك مصر وتاخدوا التاج الذهبي! أنا فخورة بيكوا قوي يا ملوك!",tags:["27 محافظة","برافو يا ملوك","التاج 👑"],board:"الامتحان + التاج 👑"}
 ];
-function selectSub(el){document.querySelectorAll('.sub-card').forEach(c=>c.classList.remove('active'));el.classList.add('active');}
-function togglePlay(){
+
+let cur=0, prog=0, playing=false, score=1250, iv;
+let chapDiv=document.getElementById('chapters');
+films.forEach((f,i)=>{
+let d=document.createElement('div');d.className='ch'+(i===0?' active':'');d.innerText=(i+1)+'. '+f.title.split(' ')[0];d.onclick=()=>go(i);chapDiv.appendChild(d);
+});
+
+function toggle(){
 playing=!playing;
 document.getElementById('playBtn').innerText=playing?'⏸️':'▶️';
 if(playing) start(); else stop();
 }
-let iv;
 function start(){
 iv=setInterval(()=>{
-progress+=0.25; if(progress>100) progress=100;
-document.getElementById('bar').style.width=progress+'%';
-let m=Math.floor(progress*25/100);
+prog+=0.35; if(prog>100) prog=100;
+document.getElementById('fill').style.width=prog+'%';
+let m=Math.floor(prog*25/100);
 document.getElementById('time').innerText=`${String(m).padStart(2,'0')}:00 / 25:00`;
-let ch=Math.floor(progress/20); if(ch!==current) goTo(ch);
-if(progress>=100){playing=false;document.getElementById('playBtn').innerText='🔁';document.getElementById('quizFinal').style.display='block';window.scrollTo(0,document.body.scrollHeight);}
-},250);
+let c=Math.floor(prog/20); if(c!==cur) go(c);
+if(prog>=100){stop();document.getElementById('qFinal').style.display='block';document.getElementById('playBtn').innerText='🔁';}
+},300);
 speak();
 }
-function stop(){clearInterval(iv);speechSynthesis.cancel();}
-function goTo(i){
-current=i;
-document.querySelectorAll('.chap').forEach((c,idx)=>{c.classList.toggle('active',idx===i);if(idx<i) c.classList.add('done');});
-let l=lessons[i];
-document.getElementById('bubble').innerText=l.text;
-document.getElementById('c1').style.display=l.chars[0]?'block':'none';
-document.getElementById('c2').style.display=l.chars[1]?'block':'none';
-let mapBox=document.getElementById('mapBox');
-if(l.map){mapBox.style.display='flex';mapBox.innerHTML=l.goves.map(g=>`<span class="gov active">${g}</span>`).join(''); document.getElementById('bubble').style.top='10px';}
-else{mapBox.style.display='none'; document.getElementById('bubble').style.top='15px';}
-if(i===1) document.getElementById('quizMid').style.display='block';
+function stop(){clearInterval(iv);playing=false;speechSynthesis.cancel();}
+function go(i){
+cur=i;
+document.querySelectorAll('.ch').forEach((el,idx)=>{el.classList.toggle('active',idx===i);if(idx<i) el.classList.add('done');});
+let f=films[i];
+document.getElementById('boardTitle').innerText=f.title;
+document.getElementById('boardText').innerText=f.board;
+document.getElementById('boardTags').innerHTML=f.tags.map(t=>`<span class="tag">${t}</span>`).join('');
+document.getElementById('bubble').innerText=f.text;
+document.getElementById('teacher').style.transform=`scale(${1+Math.random()*0.05})`;
+if(i===1) document.getElementById('q1').style.display='block';
 if(playing) speak();
 }
-function speak(){speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(lessons[current].text);u.lang='ar-EG';u.rate=0.9;speechSynthesis.speak(u);}
+function speak(){
+speechSynthesis.cancel();
+let u=new SpeechSynthesisUtterance(films[cur].text);
+u.lang='ar-EG';u.rate=0.85;u.pitch=1.1;
+speechSynthesis.speak(u);
+}
 function check(el,ok){
-if(ok){el.classList.add('correct');score+=50;} else el.classList.add('wrong');
-updateScore(); setTimeout(()=>document.getElementById('quizMid').style.display='none',1000);
+if(ok){el.classList.add('ok');score+=50;} else el.classList.add('no');
+document.getElementById('myScore').innerText=score+' نقطة';
+setTimeout(()=>document.getElementById('q1').style.display='none',1000);
 }
-function checkFinal(el,ok){
-if(ok){el.classList.add('correct');score+=100;} else el.classList.add('wrong');
-updateScore();
+function checkF(el,ok){
+if(ok){el.classList.add('ok');score+=150;} else el.classList.add('no');
+document.getElementById('myScore').innerText=score+' نقطة';
+if(document.querySelectorAll('#qFinal .ok').length===2){
+setTimeout(()=>{alert('🎉 مبروك يا ملك مصر! دخلتي لوحة شرف ملوك مصر! +'+(score-1250)+' نقطة! 👑🏆');},500);
 }
-function updateScore(){document.getElementById('myScore').innerText=score+' نقطة';document.getElementById('scoreTop').innerText=score;}
+}
+go(0);
 </script>
 </body>
 </html>
