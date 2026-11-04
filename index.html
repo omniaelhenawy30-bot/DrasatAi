@@ -3,106 +3,160 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DrasatAi - محافظات مصر</title>
-<script src="https://cdn.tailwindcss.com"></script>
+<title>ملوك مصر الفراعنة - لعبة تفاعلية</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
-<style>body{font-family:'Cairo',sans-serif}</style>
+<style>
+*{font-family:'Cairo',sans-serif;box-sizing:border-box;margin:0;padding:0}
+body{background:#FFF8E1;overflow-x:hidden}
+.header-king{background:linear-gradient(#FFD600 0%, #FF8F00 45%, #3E2723 100%);padding:15px 10px 20px;text-align:center;border-radius:0 0 35px 35px;position:sticky;top:0;z-index:99;box-shadow:0 8px 20px #0003}
+.king-wrap{width:160px;margin:0 auto;position:relative}
+.nemes{width:160px;height:65px;background:linear-gradient(90deg,#0D47A1 0 12px,#FFD600 12px 24px,#0D47A1 24px 36px,#FFD600 36px 48px,#0D47A1 48px 60px,#FFD600 60px 72px,#0D47A1 72px 84px,#FFD600 84px 96px);border-radius:15px 15px 0 0;border:3px solid #FFD600;position:relative}
+.cobra{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:28px}
+.face{width:110px;height:105px;background:#FFCC80;border-radius:15px;margin:-8px auto 0;border:3px solid #3E2723;position:relative;z-index:2}
+.eyes{display:flex;justify-content:space-around;padding-top:15px}
+.eye{width:28px;height:16px;background:#fff;border:2px solid #000;border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;position:relative}
+.eye::after{content:'';position:absolute;width:10px;height:10px;background:#000;border-radius:50%;top:1px;left:6px}
+.eye.talking{animation:blink .35s infinite}
+.mouth{width:44px;height:12px;background:#6D4C41;border-radius:0 0 15px 15px;margin:6px auto;border:2px solid #3E2723;transition:.08s}
+.mouth.talking{animation:talk .11s infinite alternate}
+@keyframes talk{0%{height:10px;width:40px}100%{height:28px;width:55px}}
+@keyframes blink{0%,90%,100%{transform:scaleY(1)}95%{transform:scaleY(0.1)}}
+.beard{width:14px;height:32px;background:#3E2723;margin:2px auto;border-radius:0 0 8px 8px}
+.collar{width:150px;height:28px;background:conic-gradient(#FFD600,#E91E63,#0D47A1,#4CAF50,#FFD600);border-radius:0 0 40px 40px;margin:0 auto;border:2px solid #FFD600}
+.score-bar{background:#fff;margin:10px;border-radius:15px;padding:8px;display:flex;justify-content:space-around;box-shadow:0 3px 0 #0001;font-weight:900;font-size:14px}
+.map-container{position:relative;width:100%;max-width:380px;margin:10px auto;background:#C8E6C9;border-radius:25px;border:4px solid #FFD600;aspect-ratio:9/12;overflow:hidden}
+.map-bg{width:100%;height:100%;background:url('map.png');background-size:contain;background-repeat:no-repeat;background-position:center;background-color:#C8E6C9}
+.hotspot{position:absolute;width:38px;height:38px;border-radius:50%;background:#fff;border:3px solid #6C5CE7;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;box-shadow:0 3px 0 #6C5CE7;animation:float 2s infinite}
+.hotspot.active{transform:scale(1.25);border-color:#FFD600;background:#FFD600}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.kings-row{display:flex;gap:6px;overflow-x:auto;padding:8px 10px}
+.king-mini{padding:6px 10px;background:#fff;border-radius:15px;border:3px solid transparent;box-shadow:0 3px 0 #0001;cursor:pointer;min-width:70px;text-align:center;font-size:12px;font-weight:700}
+.king-mini.active{border-color:#6C5CE7;background:#EDE7F6}
+.bubble{background:#fff;margin:10px;border-radius:18px;padding:14px;box-shadow:0 4px 0 #FFD600;font-size:15px;line-height:1.7;min-height:60px;text-align:right}
+.play-btn{padding:12px 28px;background:#6C5CE7;color:#fff;border:none;border-radius:25px;font-weight:900;font-size:16px;box-shadow:0 5px 0 #4834D4;margin:6px;cursor:pointer}
+.play-btn:active{transform:translateY(5px);box-shadow:0 0 0}
+.q-btn{width:100%;padding:12px;margin:6px 0;border:2px solid #eee;border-radius:12px;background:#fff;font-weight:700;cursor:pointer}
+.q-btn.correct{background:#4CAF50!important;color:#fff!important}
+.q-btn.wrong{background:#FF4B4B!important;color:#fff!important}
+.popup{position:fixed;bottom:0;left:0;right:0;background:#fff;border-radius:25px 25px 0 0;padding:15px;transform:translateY(100%);transition:.4s;z-index:999;box-shadow:0 -10px 30px #0003;max-height:80vh;overflow:auto}
+.popup.show{transform:translateY(0)}
+</style>
 </head>
-<body class="bg-[#fff7e0]">
-<div class="max-w-[440px] mx-auto bg-white min-h-screen shadow-2xl">
+<body>
 
-<div class="p-4 flex justify-between items-center border-b-2 border-black sticky top-0 bg-white z-20">
-  <div class="flex gap-2 items-center"><div class="bg-black text-yellow-400 w-11 h-11 rounded-2xl flex items-center justify-center font-black text-xl">DAi</div><div><div class="font-black">DrasatAi</div><div class="text-[11px]">رابعة • ملوك الجغرافيا 👑</div></div></div>
-  <div class="bg-black text-white px-3 py-1 rounded-full text-xs font-black">🔥7 | 💎1240</div>
+<div class="header-king">
+<div class="king-wrap">
+<div class="nemes"><div class="cobra" id="cobra">🐍</div></div>
+<div class="face" id="face">
+<div class="eyes"><div class="eye" id="e1"></div><div class="eye" id="e2"></div></div>
+<div class="mouth" id="mouth"></div>
+<div class="beard"></div>
+</div>
+<div class="collar"></div>
+</div>
+<h3 id="kingName" style="color:#fff;text-shadow:0 2px 0 #000;margin-top:8px">👑 الملك خوفو الفرعوني</h3>
+<p id="kingPlace" style="color:#FFD600;font-weight:700;font-size:13px">كفر الشيخ - الوجه البحري - 13 محافظة</p>
+<button class="play-btn" onclick="talkKing()">🔊 خلي الملك يتكلم مصري</button>
 </div>
 
-<div id="map-view">
-<div class="p-4">
-  <div class="bg-[#38bdf8] rounded-[2rem] p-5 border-[3px] border-black relative overflow-hidden">
-    <div class="absolute -left-10 -top-10 text-[120px] opacity-20">🗺️</div>
-    <div class="relative z-10 flex gap-4">
-      <div class="text-5xl">👑</div>
-      <div><div class="font-black text-lg leading-5">أهلا يا ملك كفر الشيخ!</div><div class="text-[13px] mt-1 font-bold leading-4">جاهز تبقى خبير محافظات مصر الـ27؟ دوس ابدأ الرحلة!</div>
-      <button onclick="openLesson(4)" class="mt-3 bg-black text-white px-6 py-2.5 rounded-full font-black text-sm">ابدأ الرحلة +80 XP →</button>
-      </div>
-    </div>
-  </div>
-
-  <h2 class="font-black text-center mt-7 text-[15px]">خريطة التعلم - 12 مرحلة</h2>
-  <div class="mt-4 space-y-3" id="levels"></div>
-</div>
+<div class="score-bar">
+<span>⭐ <b id="score">0</b></span>
+<span>🗺️ <b id="found">0/27</b></span>
+<span>👑 <b id="crowns">0</b></span>
 </div>
 
-<div id="lesson-view" class="hidden">
-<div class="bg-black text-white p-5 pb-8 rounded-b-[2.5rem]">
-  <button onclick="showMap()" class="bg-white/20 rounded-full px-4 py-1.5 text-xs font-bold">← رجوع للخريطة</button>
-  <div class="text-center mt-3"><div class="text-6xl">🗺️</div><h1 class="font-black text-2xl mt-2">محافظات مصر الـ27</h1><p class="text-yellow-300 text-xs mt-1 font-bold">الوجه البحري - القبلي - الصحراوي والحدودية</p>
-  <button onclick="speakText('مصر فيها سبعة وعشرين محافظة، كفر الشيخ في الوجه البحري')" class="mt-4 bg-yellow-400 text-black px-6 py-2 rounded-full font-black text-sm">🔊 شرح الملك بصوتي</button>
-  </div>
+<div class="kings-row">
+<div class="king-mini active" onclick="setKing('khufu',this)">👑 خوفو<br>بحري</div>
+<div class="king-mini" onclick="setKing('cleo',this)">👸 كليوباترا<br>بحر</div>
+<div class="king-mini" onclick="setKing('ramses',this)">👑 رمسيس<br>قبلي</div>
+<div class="king-mini" onclick="setKing('tahut',this)">🦅 تحتمس<br>حدود</div>
 </div>
 
-<div class="p-4 space-y-4 -mt-4">
+<div class="bubble" id="bubble">أهلا يا بطل سنة رابعة! أنا الملك خوفو لابس اللبس الفرعوني الأصلي - دوس على الزرار وخليّني أشرحلك محافظات مصر بصوتي المصري! 👑🗺️</div>
 
-<div class="bg-white border-[3px] border-black rounded-[1.8rem] p-4 shadow-[4px_4px_0px_0px_black]">
-  <div class="font-black">🖼️ خريطة مصر الحقيقية</div>
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Map_of_Egypt_with_governorates.svg/400px-Map_of_Egypt_with_governorates.svg.png" class="w-full mt-3 rounded-2xl border-2" alt="خريطة محافظات مصر">
-  <div class="text-[11px] text-gray-500 mt-2 text-center font-bold">دوسي على أي محافظة في الصورة واتعلمي عنها</div>
-</div>
-
-<div class="bg-sky-50 border-[3px] border-black rounded-[1.8rem] p-4">
-  <div class="font-black text-sm">🎮 لعبة 1: فين كفر الشيخ؟</div>
-  <div class="grid grid-cols-2 gap-2 mt-3">
-    <button onclick="checkAns(this,true)" class="bg-white border-2 border-black p-3 rounded-2xl font-bold text-sm">📍 كفر الشيخ - بحري ✅</button>
-    <button onclick="checkAns(this,false)" class="bg-white border-2 border-black p-3 rounded-2xl font-bold text-sm">🏜️ كفر الشيخ - قبلي</button>
-  </div>
-</div>
-
-<div class="bg-green-50 border-[3px] border-black rounded-[1.8rem] p-4">
-  <div class="font-black text-sm">🎮 لعبة 2: صنف المحافظات</div>
-  <div class="mt-3 space-y-2">
-    <div class="flex justify-between bg-white border-2 rounded-xl p-2 text-xs font-bold"><span>الإسكندرية</span><div class="flex gap-1"><button onclick="checkAns(this,true)" class="px-2 py-1 bg-sky-200 rounded-full">بحري</button><button onclick="checkAns(this,false)" class="px-2 py-1 bg-gray-100 rounded-full">قبلي</button></div></div>
-    <div class="flex justify-between bg-white border-2 rounded-xl p-2 text-xs font-bold"><span>أسوان</span><div class="flex gap-1"><button onclick="checkAns(this,false)" class="px-2 py-1 bg-gray-100 rounded-full">بحري</button><button onclick="checkAns(this,true)" class="px-2 py-1 bg-orange-200 rounded-full">قبلي</button></div></div>
-    <div class="flex justify-between bg-white border-2 rounded-xl p-2 text-xs font-bold"><span>مطروح</span><div class="flex gap-1"><button onclick="checkAns(this,true)" class="px-2 py-1 bg-yellow-200 rounded-full">حدودية</button><button onclick="checkAns(this,false)" class="px-2 py-1 bg-gray-100 rounded-full">بحري</button></div></div>
-  </div>
-</div>
-
-<div class="bg-yellow-50 border-[3px] border-black rounded-[1.8rem] p-4">
-  <div class="font-black text-sm">🎮 لعبة 3: عاصمة مصر ايه؟</div>
-  <div class="grid grid-cols-2 gap-2 mt-3">
-    <button onclick="checkAns(this,true)" class="bg-white border-2 border-black rounded-xl p-3"><div class="text-2xl">🏛️</div><div class="font-black text-xs mt-1">القاهرة</div></button>
-    <button onclick="checkAns(this,false)" class="bg-white border-2 border-black rounded-xl p-3"><div class="text-2xl">🌊</div><div class="font-black text-xs mt-1">الإسكندرية</div></button>
-  </div>
-</div>
-
-<div class="bg-black text-white rounded-[1.8rem] p-5 text-center border-[3px] border-black">
-  <div class="text-3xl">👑💎</div><div class="font-black mt-1">كسبت 80 XP وبقيت ملك المحافظات!</div>
-  <button onclick="showMap()" class="mt-3 bg-yellow-400 text-black px-8 py-2.5 rounded-full font-black">ارجع للخريطة</button>
-</div>
-
+<div class="map-container">
+<div class="map-bg">
+<div class="hotspot" style="top:7%;left:42%" onclick="clickMap('alex','الإسكندرية')">👸</div>
+<div class="hotspot" style="top:12%;left:58%" onclick="clickMap('khufu','البحيرة')">👑</div>
+<div class="hotspot" style="top:15%;left:32%" onclick="clickMap('khufu','كفر الشيخ')">⭐</div>
+<div class="hotspot" style="top:18%;left:50%" onclick="clickMap('khufu','القاهرة')">🏛️</div>
+<div class="hotspot" style="top:21%;left:68%" onclick="clickMap('khufu','دمياط')">🐟</div>
+<div class="hotspot" style="top:40%;left:48%" onclick="clickMap('ramses','الجيزة')">🔺</div>
+<div class="hotspot" style="top:54%;left:50%" onclick="clickMap('ramses','المنيا')">👑</div>
+<div class="hotspot" style="top:67%;left:53%" onclick="clickMap('ramses','الأقصر')">🏺</div>
+<div class="hotspot" style="top:75%;left:56%" onclick="clickMap('ramses','أسوان')">🌊</div>
+<div class="hotspot" style="top:30%;left:12%" onclick="clickMap('tahut','مطروح')">🏖️</div>
+<div class="hotspot" style="top:48%;left:18%" onclick="clickMap('tahut','الوادي الجديد')">🌴</div>
+<div class="hotspot" style="top:35%;left:74%" onclick="clickMap('tahut','سيناء')">⛰️</div>
+<div class="hotspot" style="top:60%;left:73%" onclick="clickMap('tahut','البحر الأحمر')">🐠</div>
 </div>
 </div>
 
+<div class="popup" id="popup">
+<h3 id="popTitle">👑 برافو!</h3>
+<p id="popText" style="margin:10px 0"></p>
+<div id="quizArea"></div>
+<button onclick="closePop()" style="width:100%;padding:10px;background:#eee;border:none;border-radius:12px;margin-top:10px">اقفل ✕</button>
 </div>
+
 <script>
-const lessons=[
- {id:1,title:"أدوات تحديد الموقع",icon:"🧭",xp:50,done:true},
- {id:2,title:"المصادر الأولية والثانوية",icon:"📜",xp:50,done:true},
- {id:3,title:"موقع مصر",icon:"🌍",xp:50,done:true},
- {id:4,title:"محافظات مصر",icon:"🗺️",xp:80,current:true},
- {id:5,title:"رموز بلدي",icon:"🦅",xp:80},
- {id:6,title:"جمال أرضنا",icon:"⛵",xp:80},
-];
-function renderLevels(){
- document.getElementById('levels').innerHTML=lessons.map(l=>{
-  let cls=l.done?"bg-yellow-100 border-yellow-400":l.current?"bg-sky-400 text-white border-blue-600":"bg-gray-100 border-gray-300 opacity-70";
-  return `<div onclick="openLesson(${l.id})" class="rounded-[1.7rem] p-4 flex gap-3 border-[3px] cursor-pointer shadow-[3px_3px_0px_0px_black] ${cls}"><div class="text-3xl">${l.icon}</div><div><div class="font-black text-sm">${l.id}. ${l.title}</div><div class="text-[11px] font-bold">${l.xp} XP - دوس للفتح</div></div></div>`;
- }).join('');
+let score=0,crowns=0,foundSet=new Set(),current='khufu';
+const winAudio=new Audio('https://cdn.pixabay.com/download/audio/2021/08/04/audio_0625c1539c.mp3?filename=success-1-6297.mp3');
+const loseAudio=new Audio('https://cdn.pixabay.com/download/audio/2022/03/24/audio_2b5c24f8d7.mp3?filename=wrong-answer-129254.mp3');
+const crownAudio=new Audio('https://cdn.pixabay.com/download/audio/2021/08/04/audio_0625c20b2e.mp3?filename=achievement-6188.mp3');
+
+const kings={
+khufu:{name:"👑 الملك خوفو الفرعوني",place:"كفر الشيخ - الوجه البحري - 13 محافظة",face:"#FFCC80",crown:"🐍",text:"يا هلا يا ابطال سنة رابعة! انا الملك خوفو لابس النمس الفرعوني الازرق والدهب وتاج الكوبرا. انا باني الهرم الاكبر. مصر متقسمة سبعة وعشرين محافظة. انا بحكم الوجه البحري تلاتاشر محافظة منهم كفر الشيخ بتاعتكم الجميلة المشهورة بالرز والسمك ودمياط اصغر محافظة في مصر كلها!"},
+cleo:{name:"👸 كليوباترا باللبس الملكي",place:"إسكندرية - عروس البحر",face:"#F8BBD0",crown:"👑",text:"اهلا يا حلوين! انا الملكة كليوباترا لابسة التاج الملكي والقلادة الفرعونية الملونة. انا ملكة اسكندرية عروس البحر المتوسط. انا بحكم اسكندرية والبحيرة وبورسعيد والسويس. احنا على المينا وبنستقبل السفن من كل العالم!"},
+ramses:{name:"👑 رمسيس التاني المحارب",place:"الأقصر وأسوان - الصعيد - 9 محافظات",face:"#FFE082",crown:"⚔️",text:"انا الملك رمسيس التاني اعظم ملوك مصر لابس لبس الحرب والقلادة الدهب. انا حكمت الصعيد كله تسع محافظات من الجيزة لحد اسوان. عندنا الجيزة فيها الاهرامات وابو الهول والاقصر فيها تلت اثار العالم كله واسوان فيها السد العالي ومعبد ابو سمبل!"},
+tahut:{name:"🦅 تحتمس حارس الحدود",place:"الوادي الجديد - أكبر محافظة",face:"#B2DFDB",crown:"🦅",text:"انا الملك تحتمس التالت المحارب الشجاع حارس حدود مصر لابس خوذة الحرب. انا بحرس خمس محافظات كبار قوي. الوادي الجديد اكبر محافظة في مصر كلها ومطروح والبحر الاحمر وسيناء وشرم الشيخ وجبل سانت كاترين! انا بحمي بلدنا!"}
+};
+
+function setKing(id,el){
+current=id;
+document.querySelectorAll('.king-mini').forEach(b=>b.classList.remove('active'));
+el.classList.add('active');
+document.getElementById('kingName').innerText=kings[id].name;
+document.getElementById('kingPlace').innerText=kings[id].place;
+document.getElementById('face').style.background=kings[id].face;
+document.getElementById('cobra').innerText=kings[id].crown;
+document.getElementById('bubble').innerText='دوس وخلي '+kings[id].name+' يتكلم!';
+window.speechSynthesis.cancel();stopTalk();
 }
-renderLevels();
-function openLesson(id){document.getElementById('map-view').classList.add('hidden');document.getElementById('lesson-view').classList.remove('hidden');window.scrollTo(0,0);}
-function showMap(){document.getElementById('lesson-view').classList.add('hidden');document.getElementById('map-view').classList.remove('hidden');}
-function checkAns(btn,ok){btn.style.background=ok?'#22c55e':'#ef4444';btn.style.color='white';btn.innerText+= ok?' ✅ صح برافو!':' ❌ جرب تاني'; if(ok){navigator.vibrate&&navigator.vibrate(100);}}
-function speakText(t){if('speechSynthesis' in window){let u=new SpeechSynthesisUtterance(t);u.lang='ar-EG';speechSynthesis.speak(u);} }
+function talkKing(){
+const t=kings[current].text;
+document.getElementById('bubble').innerText=t;
+startTalk();
+let u=new SpeechSynthesisUtterance(t);
+let voices=window.speechSynthesis.getVoices();
+let eg=voices.find(v=>v.lang==='ar-EG'); if(eg) u.voice=eg;
+u.lang='ar-EG';u.rate=0.84;u.pitch=1.05;
+u.onend=()=>{stopTalk();document.getElementById('bubble').innerHTML=t+'<br><br>✅ <b>سمعت الشرح! دوس على الخريطة واكتشف محافظة جديدة!</b>';};
+window.speechSynthesis.speak(u);
+}
+function startTalk(){document.getElementById('mouth').classList.add('talking');document.getElementById('e1').classList.add('talking');document.getElementById('e2').classList.add('talking');}
+function stopTalk(){document.getElementById('mouth').classList.remove('talking');document.getElementById('e1').classList.remove('talking');document.getElementById('e2').classList.remove('talking');}
+function clickMap(kingId,place){
+setKing(kingId,document.querySelector(`.king-mini:nth-child(${kingId==='khufu'?1:kingId==='cleo'?2:kingId==='ramses'?3:4})`));
+foundSet.add(place);score+=10;
+if(foundSet.size%3==0){crowns++;crownAudio.play().catch(()=>{});}
+else{winAudio.play().catch(()=>{});}
+document.getElementById('score').innerText=score;
+document.getElementById('found').innerText=foundSet.size+'/27';
+document.getElementById('crowns').innerText=crowns;
+document.getElementById('popTitle').innerText='📍 اكتشفت '+place+'!';
+document.getElementById('popText').innerText=kings[kingId].place+' - برافو يا بطل!';
+document.getElementById('quizArea').innerHTML=`<button class="q-btn" onclick="answerQ(this,1)">سمعت شرح ${place} 👑</button><button class="q-btn" onclick="answerQ(this,0)">لسه مسمعتش</button>`;
+document.getElementById('popup').classList.add('show');
+}
+function answerQ(el,ok){
+if(ok){el.classList.add('correct');winAudio.play().catch(()=>{});score+=5;}
+else{el.classList.add('wrong');loseAudio.play().catch(()=>{});}
+document.getElementById('score').innerText=score;
+setTimeout(closePop,800);
+}
+function closePop(){document.getElementById('popup').classList.remove('show');}
+window.speechSynthesis.onvoiceschanged=()=>window.speechSynthesis.getVoices();
 </script>
 </body>
 </html>
